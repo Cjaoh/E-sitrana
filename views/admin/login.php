@@ -98,7 +98,6 @@
             try {
                 const admin = await app.checkAuthStatus();
                 if (admin) {
-                    window.location.href = '{{ route('dashboard') }}';
                     window.location.href = 'dashboard.php';
                 }
             } catch (error) {

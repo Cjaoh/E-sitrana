@@ -24,6 +24,7 @@ $routes = [
     'services' => 'api/services.php',
     'doctors' => 'api/doctors.php',
     'appointments' => 'api/appointments.php',
+    'patients' => 'api/patients.php',
     'dashboard' => 'api/dashboard.php',
 ];
 

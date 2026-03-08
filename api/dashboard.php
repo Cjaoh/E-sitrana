@@ -4,10 +4,10 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-require_once '../config/database.php';
-require_once '../models/Doctor.php';
-require_once '../models/Patient.php';
-require_once '../models/Appointment.php';
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../models/Doctor.php';
+require_once __DIR__ . '/../models/Patient.php';
+require_once __DIR__ . '/../models/Appointment.php';
 
 session_start();
 
@@ -20,55 +20,44 @@ if(!isset($_SESSION['admin_id'])) {
 $database = new Database();
 $db = $database->getConnection();
 
+// Get statistics
+$stats = array();
+
+// Count doctors
 $doctor = new Doctor($db);
+$doctors_stmt = $doctor->read();
+$stats['total_doctors'] = $doctors_stmt->rowCount();
+
+// Count patients
 $patient = new Patient($db);
+$patients_stmt = $patient->read();
+$stats['total_patients'] = $patients_stmt->rowCount();
+
+// Count appointments
 $appointment = new Appointment($db);
+$appointments_stmt = $appointment->read();
+$stats['total_appointments'] = $appointments_stmt->rowCount();
 
-$request_method = $_SERVER["REQUEST_METHOD"];
+// Count services
+$stats['total_services'] = 5; // From database_setup.sql
 
-if($request_method == 'GET') {
-    $stats = array();
-    
-    // Total doctors
-    $stmt = $doctor->read();
-    $stats['total_doctors'] = $stmt->rowCount();
-    
-    // Total patients
-    $stmt = $patient->read();
-    $stats['total_patients'] = $stmt->rowCount();
-    
-    // Today's appointments
-    $stats['today_appointments'] = $appointment->getTodayAppointments();
-    
-    // Total appointments
-    $stats['total_appointments'] = $appointment->getTotalAppointments();
-    
-    // Recent appointments (last 5)
-    $stmt = $appointment->read();
-    $recent_appointments = array();
-    $count = 0;
-    
-    while($row = $stmt->fetch(PDO::FETCH_ASSOC) && $count < 5) {
-        extract($row);
-        $appointment_item = array(
-            "id" => $id,
-            "patient_name" => $patient_first_name . ' ' . $patient_last_name,
-            "doctor_name" => $doctor_first_name . ' ' . $doctor_last_name,
-            "service_name" => $service_name,
-            "appointment_date" => $appointment_date,
-            "appointment_time" => $appointment_time,
-            "status" => $status
-        );
-        array_push($recent_appointments, $appointment_item);
-        $count++;
-    }
-    
-    $stats['recent_appointments'] = $recent_appointments;
-    
-    http_response_code(200);
-    echo json_encode($stats);
-} else {
-    http_response_code(405);
-    echo json_encode(array("message" => "Method not allowed."));
+// Get recent appointments (last 7 days)
+$query = "SELECT COUNT(*) as recent_appointments FROM appointments WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)";
+$stmt = $db->prepare($query);
+$stmt->execute();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+$stats['recent_appointments'] = $result['recent_appointments'];
+
+// Get appointments by status
+$query = "SELECT status, COUNT(*) as count FROM appointments GROUP BY status";
+$stmt = $db->prepare($query);
+$stmt->execute();
+$status_counts = array();
+while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $status_counts[$row['status']] = $row['count'];
 }
+$stats['appointments_by_status'] = $status_counts;
+
+http_response_code(200);
+echo json_encode($stats);
 ?>

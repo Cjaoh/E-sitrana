@@ -96,7 +96,7 @@ class EstitranaApp {
     // Authentication
     async checkAuthStatus() {
         try {
-            const result = await this.apiCall('/auth');
+            const result = await this.apiCall('auth');
             return result.admin;
         } catch (error) {
             return null;
@@ -104,71 +104,116 @@ class EstitranaApp {
     }
 
     async login(username, password) {
-        return await this.apiCall('/auth', 'POST', { username, password });
+        return await this.apiCall('auth', {
+            method: 'POST',
+            body: JSON.stringify({ username, password })
+        });
     }
 
     async logout() {
-        return await this.apiCall('/auth', 'DELETE');
+        return await this.apiCall('auth', { method: 'DELETE' });
     }
 
     // Services
     async getServices() {
-        const result = await this.apiCall('/services');
+        const result = await this.apiCall('services');
         return result.records || [];
     }
 
     async createService(serviceData) {
-        return await this.apiCall('/services', 'POST', serviceData);
+        return await this.apiCall('services', {
+            method: 'POST',
+            body: JSON.stringify(serviceData)
+        });
     }
 
     async updateService(id, serviceData) {
-        return await this.apiCall(`/services?id=${id}`, 'PUT', serviceData);
+        return await this.apiCall(`services?id=${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(serviceData)
+        });
     }
 
     async deleteService(id) {
-        return await this.apiCall(`/services?id=${id}`, 'DELETE');
+        return await this.apiCall(`services?id=${id}`, { method: 'DELETE' });
     }
 
     // Doctors
     async getDoctors(serviceId = null) {
-        const endpoint = serviceId ? `/doctors?service_id=${serviceId}` : '/doctors';
+        const endpoint = serviceId ? `doctors&service_id=${serviceId}` : 'doctors';
         const result = await this.apiCall(endpoint);
         return result.records || [];
     }
 
     async createDoctor(doctorData) {
-        return await this.apiCall('/doctors', 'POST', doctorData);
+        return await this.apiCall('doctors', {
+            method: 'POST',
+            body: JSON.stringify(doctorData)
+        });
     }
 
     async updateDoctor(id, doctorData) {
-        return await this.apiCall(`/doctors?id=${id}`, 'PUT', doctorData);
+        return await this.apiCall(`doctors?id=${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(doctorData)
+        });
     }
 
     async deleteDoctor(id) {
-        return await this.apiCall(`/doctors?id=${id}`, 'DELETE');
+        return await this.apiCall(`doctors?id=${id}`, { method: 'DELETE' });
     }
 
     // Appointments
     async getAppointments() {
-        const result = await this.apiCall('/appointments');
+        const result = await this.apiCall('appointments');
         return result.records || [];
     }
 
     async createAppointment(appointmentData) {
-        return await this.apiCall('/appointments', 'POST', appointmentData);
+        return await this.apiCall('appointments', {
+            method: 'POST',
+            body: JSON.stringify(appointmentData)
+        });
     }
 
-    async updateAppointmentStatus(id, status) {
-        return await this.apiCall(`/appointments?id=${id}`, 'PUT', { status });
+    async updateAppointment(id, appointmentData) {
+        return await this.apiCall(`appointments?id=${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(appointmentData)
+        });
     }
 
     async deleteAppointment(id) {
-        return await this.apiCall(`/appointments?id=${id}`, 'DELETE');
+        return await this.apiCall(`appointments?id=${id}`, { method: 'DELETE' });
     }
 
     // Dashboard
     async getDashboardStats() {
-        return await this.apiCall('/dashboard');
+        return await this.apiCall('dashboard');
+    }
+
+    // Patients
+    async getPatients() {
+        const result = await this.apiCall('patients');
+        return result.records || [];
+    }
+
+    async createPatient(patientData) {
+        return await this.apiCall('patients', {
+            method: 'POST',
+            body: JSON.stringify(patientData)
+        });
+    }
+
+    async updatePatient(id, patientData) {
+        return await this.apiCall(`patients?id=${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(patientData)
+        });
+    }
+
+    async deletePatient(id) {
+        return await this.apiCall(`patients?id=${id}`, { method: 'DELETE' });
     }
 
     // Form Validation

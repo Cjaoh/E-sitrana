@@ -366,7 +366,7 @@ if (!isset($_SESSION['admin_id'])) {
 
         // Search functionality
         document.getElementById('searchInput').addEventListener('input', app.debounce(function() {
-            const searchTerm = this.value.toLowerCase();
+            const searchTerm = this.value ? this.value.toLowerCase() : '';
             const filtered = allServices.filter(service => 
                 service.name.toLowerCase().includes(searchTerm) ||
                 service.description.toLowerCase().includes(searchTerm)

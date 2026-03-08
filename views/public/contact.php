@@ -309,9 +309,9 @@
                 <div class="col-md-4">
                     <h5>Contact</h5>
                     <ul class="list-unstyled">
-                        <li><i class="fas fa-map-marker-alt me-2"></i>123 Rue de la Santé, Dakar</li>
-                        <li><i class="fas fa-phone me-2"></i>+221 33 123 45 67</li>
-                        <li><i class="fas fa-envelope me-2"></i>contact@esitrana.com</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i>Lot II J 23 Ter Antsirabe, Madagascar</li>
+                        <li><i class="fas fa-phone me-2"></i>+261 34 78 90 12 34</li>
+                        <li><i class="fas fa-envelope me-2"></i>contact@esitrana.mg</li>
                         <li><i class="fas fa-clock me-2"></i>Lun-Dim: 8h-20h</li>
                     </ul>
                 </div>

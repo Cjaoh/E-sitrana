@@ -8,6 +8,8 @@ class Patient {
     public $last_name;
     public $phone;
     public $email;
+    public $address;
+    public $birth_date;
     public $created_at;
 
     public function __construct($db) {
@@ -15,7 +17,7 @@ class Patient {
     }
 
     public function create() {
-        $query = "INSERT INTO " . $this->table_name . " SET first_name=:first_name, last_name=:last_name, phone=:phone, email=:email";
+        $query = "INSERT INTO " . $this->table_name . " SET first_name=:first_name, last_name=:last_name, phone=:phone, email=:email, address=:address, birth_date=:birth_date";
         
         $stmt = $this->conn->prepare($query);
         
@@ -23,11 +25,15 @@ class Patient {
         $this->last_name=htmlspecialchars(strip_tags($this->last_name));
         $this->phone=htmlspecialchars(strip_tags($this->phone));
         $this->email=htmlspecialchars(strip_tags($this->email));
+        $this->address=htmlspecialchars(strip_tags($this->address));
+        $this->birth_date=htmlspecialchars(strip_tags($this->birth_date));
         
         $stmt->bindParam(":first_name", $this->first_name);
         $stmt->bindParam(":last_name", $this->last_name);
         $stmt->bindParam(":phone", $this->phone);
         $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":address", $this->address);
+        $stmt->bindParam(":birth_date", $this->birth_date);
         
         if($stmt->execute()) {
             $this->id = $this->conn->lastInsertId();
@@ -58,6 +64,8 @@ class Patient {
         $this->last_name = $row['last_name'];
         $this->phone = $row['phone'];
         $this->email = $row['email'];
+        $this->address = $row['address'];
+        $this->birth_date = $row['birth_date'];
     }
 
     public function checkIfExists() {
@@ -84,6 +92,48 @@ class Patient {
             if($this->create()) {
                 return $this->id;
             }
+        }
+        return false;
+    }
+
+    public function update() {
+        $query = "UPDATE " . $this->table_name . " SET first_name = :first_name, last_name = :last_name, phone = :phone, email = :email, address = :address, birth_date = :birth_date WHERE id = :id";
+        
+        $stmt = $this->conn->prepare($query);
+        
+        $this->first_name=htmlspecialchars(strip_tags($this->first_name));
+        $this->last_name=htmlspecialchars(strip_tags($this->last_name));
+        $this->phone=htmlspecialchars(strip_tags($this->phone));
+        $this->email=htmlspecialchars(strip_tags($this->email));
+        $this->address=htmlspecialchars(strip_tags($this->address));
+        $this->birth_date=htmlspecialchars(strip_tags($this->birth_date));
+        $this->id=htmlspecialchars(strip_tags($this->id));
+        
+        $stmt->bindParam(':first_name', $this->first_name);
+        $stmt->bindParam(':last_name', $this->last_name);
+        $stmt->bindParam(':phone', $this->phone);
+        $stmt->bindParam(':email', $this->email);
+        $stmt->bindParam(':address', $this->address);
+        $stmt->bindParam(':birth_date', $this->birth_date);
+        $stmt->bindParam(':id', $this->id);
+        
+        if($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function delete() {
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
+        
+        $stmt = $this->conn->prepare($query);
+        
+        $this->id=htmlspecialchars(strip_tags($this->id));
+        
+        $stmt->bindParam(1, $this->id);
+        
+        if($stmt->execute()) {
+            return true;
         }
         return false;
     }
