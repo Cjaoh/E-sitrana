@@ -92,6 +92,8 @@ switch($request_method) {
             $patient->last_name = $data->last_name;
             $patient->phone = $data->phone;
             $patient->email = $data->email;
+            $patient->address = isset($data->address) ? $data->address : null;
+            $patient->birth_date = isset($data->birth_date) ? $data->birth_date : null;
             
             $patient_id = $patient->getOrCreate();
             

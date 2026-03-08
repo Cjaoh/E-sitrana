@@ -58,6 +58,38 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 }
 $stats['appointments_by_status'] = $status_counts;
 
+// Get recent appointments list (last 10)
+$query = "SELECT a.*, p.first_name as patient_first_name, p.last_name as patient_last_name, p.phone as patient_phone, 
+                d.first_name as doctor_first_name, d.last_name as doctor_last_name, d.speciality as doctor_speciality,
+                s.name as service_name
+          FROM appointments a
+          LEFT JOIN patients p ON a.patient_id = p.id
+          LEFT JOIN doctors d ON a.doctor_id = d.id
+          LEFT JOIN services s ON a.service_id = s.id
+          ORDER BY a.appointment_date DESC, a.appointment_time DESC
+          LIMIT 10";
+$stmt = $db->prepare($query);
+$stmt->execute();
+
+$recent_appointments_list = array();
+while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $appointment_item = array(
+        "id" => $row['id'],
+        "patient_first_name" => $row['patient_first_name'],
+        "patient_last_name" => $row['patient_last_name'],
+        "patient_phone" => $row['patient_phone'],
+        "doctor_first_name" => $row['doctor_first_name'],
+        "doctor_last_name" => $row['doctor_last_name'],
+        "doctor_speciality" => $row['doctor_speciality'],
+        "service_name" => $row['service_name'],
+        "appointment_date" => $row['appointment_date'],
+        "appointment_time" => substr($row['appointment_time'], 0, 5),
+        "status" => $row['status']
+    );
+    array_push($recent_appointments_list, $appointment_item);
+}
+$stats['recent_appointments_list'] = $recent_appointments_list;
+
 http_response_code(200);
 echo json_encode($stats);
 ?>

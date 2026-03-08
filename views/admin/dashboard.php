@@ -260,7 +260,7 @@ if (!isset($_SESSION['admin_id'])) {
         // Load recent appointments
         async function loadRecentAppointments() {
             try {
-                const appointments = dashboardData.recent_appointments || [];
+                const appointments = dashboardData.recent_appointments_list || [];
                 const tbody = document.getElementById('appointments-tbody');
                 
                 if (appointments.length === 0) {

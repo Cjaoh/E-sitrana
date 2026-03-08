@@ -28,12 +28,16 @@ class Patient {
         $this->address=htmlspecialchars(strip_tags($this->address));
         $this->birth_date=htmlspecialchars(strip_tags($this->birth_date));
         
+        // Handle empty birth_date
+        $birth_date = !empty($this->birth_date) ? $this->birth_date : null;
+        $address = !empty($this->address) ? $this->address : null;
+        
         $stmt->bindParam(":first_name", $this->first_name);
         $stmt->bindParam(":last_name", $this->last_name);
         $stmt->bindParam(":phone", $this->phone);
         $stmt->bindParam(":email", $this->email);
-        $stmt->bindParam(":address", $this->address);
-        $stmt->bindParam(":birth_date", $this->birth_date);
+        $stmt->bindParam(":address", $address);
+        $stmt->bindParam(":birth_date", $birth_date);
         
         if($stmt->execute()) {
             $this->id = $this->conn->lastInsertId();
@@ -109,12 +113,16 @@ class Patient {
         $this->birth_date=htmlspecialchars(strip_tags($this->birth_date));
         $this->id=htmlspecialchars(strip_tags($this->id));
         
+        // Handle empty birth_date and address
+        $birth_date = !empty($this->birth_date) ? $this->birth_date : null;
+        $address = !empty($this->address) ? $this->address : null;
+        
         $stmt->bindParam(':first_name', $this->first_name);
         $stmt->bindParam(':last_name', $this->last_name);
         $stmt->bindParam(':phone', $this->phone);
         $stmt->bindParam(':email', $this->email);
-        $stmt->bindParam(':address', $this->address);
-        $stmt->bindParam(':birth_date', $this->birth_date);
+        $stmt->bindParam(':address', $address);
+        $stmt->bindParam(':birth_date', $birth_date);
         $stmt->bindParam(':id', $this->id);
         
         if($stmt->execute()) {
