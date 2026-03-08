@@ -37,6 +37,11 @@
                             <a class="nav-link" href="contact.php">Contact</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="user-dashboard.php">
+                                <i class="fas fa-user me-1"></i>Mon Espace
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/views/admin/login.php">
                                 <i class="fas fa-user-shield me-1"></i>Admin
                             </a>
