@@ -1,6 +1,8 @@
-CREATE DATABASE IF NOT EXISTS `E-sitrana_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS `E_sitrana_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-USE `E-sitrana_db`;
+USE `E_sitrana_db`;
+SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4;
 
 -- Table pour les administrateurs
 CREATE TABLE IF NOT EXISTS `admins` (
@@ -48,6 +50,8 @@ CREATE TABLE IF NOT EXISTS `patients` (
     `last_name` varchar(50) NOT NULL,
     `phone` varchar(20) NOT NULL,
     `email` varchar(100) NOT NULL,
+    `address` varchar(255) DEFAULT NULL,
+    `birth_date` date DEFAULT NULL,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -73,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `appointments` (
 
 -- Insérer un administrateur par défaut (mot de passe: admin123)
 INSERT INTO `admins` (`username`, `password`, `email`) VALUES 
-('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin@esitrana.com')
+('admin', '$2y$10$0KoHbKJIJTpzvGEcCA8t9ensIArFpS.X/R3/qeWHPmpCjIDg1nM8y', 'admin@esitrana.com')
 ON DUPLICATE KEY UPDATE username=username;
 
 -- Insérer des services par défaut

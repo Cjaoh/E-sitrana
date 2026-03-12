@@ -25,12 +25,12 @@ class Patient {
         $this->last_name=htmlspecialchars(strip_tags($this->last_name));
         $this->phone=htmlspecialchars(strip_tags($this->phone));
         $this->email=htmlspecialchars(strip_tags($this->email));
-        $this->address=htmlspecialchars(strip_tags($this->address));
-        $this->birth_date=htmlspecialchars(strip_tags($this->birth_date));
+        $address = $this->address !== null ? htmlspecialchars(strip_tags($this->address)) : null;
+        $birth_date = $this->birth_date !== null ? htmlspecialchars(strip_tags($this->birth_date)) : null;
         
         // Handle empty birth_date
-        $birth_date = !empty($this->birth_date) ? $this->birth_date : null;
-        $address = !empty($this->address) ? $this->address : null;
+        $birth_date = !empty($birth_date) ? $birth_date : null;
+        $address = !empty($address) ? $address : null;
         
         $stmt->bindParam(":first_name", $this->first_name);
         $stmt->bindParam(":last_name", $this->last_name);
@@ -63,6 +63,9 @@ class Patient {
         $stmt->execute();
         
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if(!$row) {
+            return false;
+        }
         
         $this->first_name = $row['first_name'];
         $this->last_name = $row['last_name'];
@@ -70,6 +73,7 @@ class Patient {
         $this->email = $row['email'];
         $this->address = $row['address'];
         $this->birth_date = $row['birth_date'];
+        return true;
     }
 
     public function checkIfExists() {
@@ -109,13 +113,13 @@ class Patient {
         $this->last_name=htmlspecialchars(strip_tags($this->last_name));
         $this->phone=htmlspecialchars(strip_tags($this->phone));
         $this->email=htmlspecialchars(strip_tags($this->email));
-        $this->address=htmlspecialchars(strip_tags($this->address));
-        $this->birth_date=htmlspecialchars(strip_tags($this->birth_date));
+        $address = $this->address !== null ? htmlspecialchars(strip_tags($this->address)) : null;
+        $birth_date = $this->birth_date !== null ? htmlspecialchars(strip_tags($this->birth_date)) : null;
         $this->id=htmlspecialchars(strip_tags($this->id));
         
         // Handle empty birth_date and address
-        $birth_date = !empty($this->birth_date) ? $this->birth_date : null;
-        $address = !empty($this->address) ? $this->address : null;
+        $birth_date = !empty($birth_date) ? $birth_date : null;
+        $address = !empty($address) ? $address : null;
         
         $stmt->bindParam(':first_name', $this->first_name);
         $stmt->bindParam(':last_name', $this->last_name);

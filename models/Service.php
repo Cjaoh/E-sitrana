@@ -20,11 +20,11 @@ class Service {
         
         $this->name=htmlspecialchars(strip_tags($this->name));
         $this->description=htmlspecialchars(strip_tags($this->description));
-        $this->icon=htmlspecialchars(strip_tags($this->icon));
+        $icon = $this->icon !== null ? htmlspecialchars(strip_tags($this->icon)) : null;
         
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":description", $this->description);
-        $stmt->bindParam(":icon", $this->icon);
+        $stmt->bindParam(":icon", $icon);
         
         if($stmt->execute()) {
             return true;
@@ -49,10 +49,14 @@ class Service {
         $stmt->execute();
         
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if(!$row) {
+            return false;
+        }
         
         $this->name = $row['name'];
         $this->description = $row['description'];
         $this->icon = $row['icon'];
+        return true;
     }
 
     public function update() {
@@ -62,12 +66,12 @@ class Service {
         
         $this->name=htmlspecialchars(strip_tags($this->name));
         $this->description=htmlspecialchars(strip_tags($this->description));
-        $this->icon=htmlspecialchars(strip_tags($this->icon));
+        $icon = $this->icon !== null ? htmlspecialchars(strip_tags($this->icon)) : null;
         $this->id=htmlspecialchars(strip_tags($this->id));
         
         $stmt->bindParam(':name', $this->name);
         $stmt->bindParam(':description', $this->description);
-        $stmt->bindParam(':icon', $this->icon);
+        $stmt->bindParam(':icon', $icon);
         $stmt->bindParam(':id', $this->id);
         
         if($stmt->execute()) {

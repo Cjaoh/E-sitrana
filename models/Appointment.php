@@ -58,6 +58,9 @@ class Appointment {
         $stmt->execute();
         
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if(!$row) {
+            return false;
+        }
         
         $this->patient_id = $row['patient_id'];
         $this->doctor_id = $row['doctor_id'];
@@ -65,6 +68,7 @@ class Appointment {
         $this->appointment_date = $row['appointment_date'];
         $this->appointment_time = $row['appointment_time'];
         $this->status = $row['status'];
+        return true;
     }
 
     public function updateStatus() {

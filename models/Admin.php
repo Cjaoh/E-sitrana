@@ -39,9 +39,13 @@ class Admin {
         $stmt->execute();
         
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if(!$row) {
+            return false;
+        }
         
         $this->username = $row['username'];
         $this->email = $row['email'];
+        return true;
     }
 
     public function create() {

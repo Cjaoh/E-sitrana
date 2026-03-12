@@ -9,7 +9,9 @@ require_once __DIR__ . '/../models/Doctor.php';
 require_once __DIR__ . '/../models/Patient.php';
 require_once __DIR__ . '/../models/Appointment.php';
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if(!isset($_SESSION['admin_id'])) {
     http_response_code(401);
@@ -19,6 +21,11 @@ if(!isset($_SESSION['admin_id'])) {
 
 $database = new Database();
 $db = $database->getConnection();
+if(!$db) {
+    http_response_code(503);
+    echo json_encode(array("message" => "Database connection failed."));
+    exit();
+}
 
 // Get statistics
 $stats = array();
@@ -39,7 +46,9 @@ $appointments_stmt = $appointment->read();
 $stats['total_appointments'] = $appointments_stmt->rowCount();
 
 // Count services
-$stats['total_services'] = 5; // From database_setup.sql
+$services_stmt = $db->query("SELECT COUNT(*) as count FROM services");
+$services_result = $services_stmt->fetch(PDO::FETCH_ASSOC);
+$stats['total_services'] = $services_result ? $services_result['count'] : 0;
 
 // Get recent appointments (last 7 days)
 $query = "SELECT COUNT(*) as recent_appointments FROM appointments WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)";

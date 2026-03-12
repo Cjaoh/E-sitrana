@@ -5,7 +5,11 @@ require_once __DIR__ . '/config/database.php';
 echo "=== Test E-sitrana ===\n\n";
 
 try {
+    $database = new Database();
     $db = $database->getConnection();
+    if (!$db) {
+        throw new Exception("Connexion à la base de données échouée");
+    }
     echo "✓ Connexion à la base de données réussie\n";
     
     // Test des services

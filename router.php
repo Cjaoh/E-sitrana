@@ -1,6 +1,8 @@
 <?php
 // Main router for E-sitrana application
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Get the requested path
 $request_uri = $_SERVER['REQUEST_URI'];

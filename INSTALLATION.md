@@ -13,21 +13,43 @@
 
 - **Serveur web** (Apache avec mod_rewrite ou Nginx)
 
+## Installation avec Docker (recommandé)
+
+1. Démarrez l'application et la base MySQL :
+   ```bash
+   make up
+   ```
+
+2. Accédez à l'application :
+   ```
+   http://localhost:8080
+   ```
+
+3. Arrêter les services :
+   ```bash
+   make down
+   ```
+
+4. Si les uploads échouent :
+   ```bash
+   make perms
+   ```
+
 ## Étape 1: Configuration de la base de données
 
 1. Créez une base de données MySQL :
    ```sql
-   CREATE DATABASE E-sitrana_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+   CREATE DATABASE E_sitrana_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
    ```
 
 2. Importez le fichier SQL :
    ```bash
-   mysql -u votre_utilisateur -p E-sitrana_db < database_setup.sql
+   mysql -u votre_utilisateur -p E_sitrana_db < database_setup.sql
    ```
 
 3. Vérifiez que les tables ont été créées :
    ```sql
-   USE E-sitrana_db;
+   USE E_sitrana_db;
    SHOW TABLES;
    ```
 
@@ -44,7 +66,7 @@
 3. Configurez la connexion à la base de données dans `config/database.php` si nécessaire :
    ```php
    private $host = 'localhost';
-   private $db_name = 'E-sitrana_db';
+   private $db_name = 'E_sitrana_db';
    private $username = 'votre_utilisateur_mysql';
    private $password = 'votre_mot_de_passe_mysql';
    ```

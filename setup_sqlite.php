@@ -60,6 +60,8 @@ try {
             last_name VARCHAR(50) NOT NULL,
             phone VARCHAR(20) NOT NULL,
             email VARCHAR(100) NOT NULL,
+            address VARCHAR(255),
+            birth_date DATE,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     ");
@@ -89,7 +91,7 @@ try {
     // Admin par défaut
     $pdo->exec("
         INSERT OR IGNORE INTO admins (username, password, email) 
-        VALUES ('admin', '\$2y\$10\$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin@esitrana.com')
+        VALUES ('admin', '\$2y\$10\$0KoHbKJIJTpzvGEcCA8t9ensIArFpS.X/R3/qeWHPmpCjIDg1nM8y', 'admin@esitrana.com')
     ");
     
     // Services

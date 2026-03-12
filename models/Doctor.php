@@ -28,8 +28,8 @@ class Doctor {
         $this->speciality=htmlspecialchars(strip_tags($this->speciality));
         $this->phone=htmlspecialchars(strip_tags($this->phone));
         $this->email=htmlspecialchars(strip_tags($this->email));
-        $this->photo=htmlspecialchars(strip_tags($this->photo));
-        $this->description=htmlspecialchars(strip_tags($this->description));
+        $photo = $this->photo !== null ? htmlspecialchars(strip_tags($this->photo)) : null;
+        $description = $this->description !== null ? htmlspecialchars(strip_tags($this->description)) : null;
         $this->service_id=htmlspecialchars(strip_tags($this->service_id));
         
         $stmt->bindParam(":first_name", $this->first_name);
@@ -37,8 +37,8 @@ class Doctor {
         $stmt->bindParam(":speciality", $this->speciality);
         $stmt->bindParam(":phone", $this->phone);
         $stmt->bindParam(":email", $this->email);
-        $stmt->bindParam(":photo", $this->photo);
-        $stmt->bindParam(":description", $this->description);
+        $stmt->bindParam(":photo", $photo);
+        $stmt->bindParam(":description", $description);
         $stmt->bindParam(":service_id", $this->service_id);
         
         if($stmt->execute()) {
@@ -64,6 +64,9 @@ class Doctor {
         $stmt->execute();
         
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if(!$row) {
+            return false;
+        }
         
         $this->first_name = $row['first_name'];
         $this->last_name = $row['last_name'];
@@ -73,6 +76,7 @@ class Doctor {
         $this->photo = $row['photo'];
         $this->description = $row['description'];
         $this->service_id = $row['service_id'];
+        return true;
     }
 
     public function update() {
@@ -85,8 +89,8 @@ class Doctor {
         $this->speciality=htmlspecialchars(strip_tags($this->speciality));
         $this->phone=htmlspecialchars(strip_tags($this->phone));
         $this->email=htmlspecialchars(strip_tags($this->email));
-        $this->photo=htmlspecialchars(strip_tags($this->photo));
-        $this->description=htmlspecialchars(strip_tags($this->description));
+        $photo = $this->photo !== null ? htmlspecialchars(strip_tags($this->photo)) : null;
+        $description = $this->description !== null ? htmlspecialchars(strip_tags($this->description)) : null;
         $this->service_id=htmlspecialchars(strip_tags($this->service_id));
         $this->id=htmlspecialchars(strip_tags($this->id));
         
@@ -95,8 +99,8 @@ class Doctor {
         $stmt->bindParam(':speciality', $this->speciality);
         $stmt->bindParam(':phone', $this->phone);
         $stmt->bindParam(':email', $this->email);
-        $stmt->bindParam(':photo', $this->photo);
-        $stmt->bindParam(':description', $this->description);
+        $stmt->bindParam(':photo', $photo);
+        $stmt->bindParam(':description', $description);
         $stmt->bindParam(':service_id', $this->service_id);
         $stmt->bindParam(':id', $this->id);
         

@@ -4,13 +4,20 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../models/Admin.php';
 
 $database = new Database();
 $db = $database->getConnection();
+if(!$db) {
+    http_response_code(503);
+    echo json_encode(array("message" => "Database connection failed."));
+    exit();
+}
 
 $admin = new Admin($db);
 

@@ -9,6 +9,11 @@ require_once __DIR__ . '/../models/Doctor.php';
 
 $database = new Database();
 $db = $database->getConnection();
+if(!$db) {
+    http_response_code(503);
+    echo json_encode(array("message" => "Database connection failed."));
+    exit();
+}
 
 $doctor = new Doctor($db);
 

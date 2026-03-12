@@ -24,28 +24,54 @@ class EstitranaApp {
 
     // API Helper Methods
     async apiCall(endpoint, options = {}) {
+        const { silent = false, allowStatuses = [], ...fetchOptions } = options;
         const url = `${this.apiBase}${endpoint}`;
-        console.log('API Call:', url); // Debug
+        if (!silent) {
+            console.log('API Call:', url); // Debug
+        }
         
         try {
             const response = await fetch(url, {
                 headers: {
                     'Content-Type': 'application/json',
-                    ...options.headers
+                    ...fetchOptions.headers
                 },
-                ...options
+                ...fetchOptions
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            const allowed = response.ok || allowStatuses.includes(response.status);
+            const raw = await response.text();
+            let data = null;
+            if (raw) {
+                try {
+                    data = JSON.parse(raw);
+                } catch (parseError) {
+                    if (!allowed) {
+                        const error = new Error(`HTTP ${response.status}: ${response.statusText}`);
+                        error.status = response.status;
+                        error.body = raw;
+                        throw error;
+                    }
+                    return raw;
+                }
             }
 
-            const data = await response.json();
-            console.log('API Response:', data); // Debug
+            if (!allowed) {
+                const error = new Error(`HTTP ${response.status}: ${response.statusText}`);
+                error.status = response.status;
+                error.body = data;
+                throw error;
+            }
+
+            if (!silent) {
+                console.log('API Response:', data); // Debug
+            }
             return data;
         } catch (error) {
-            console.error('API Error:', error);
-            this.showAlert(error.message, 'danger');
+            if (!silent) {
+                console.error('API Error:', error);
+                this.showAlert(error.message, 'danger');
+            }
             throw error;
         }
     }
@@ -96,8 +122,8 @@ class EstitranaApp {
     // Authentication
     async checkAuthStatus() {
         try {
-            const result = await this.apiCall('auth');
-            return result.admin;
+            const result = await this.apiCall('auth', { allowStatuses: [401], silent: true });
+            return result && result.admin ? result.admin : null;
         } catch (error) {
             return null;
         }
@@ -180,6 +206,13 @@ class EstitranaApp {
         return await this.apiCall(`appointments?id=${id}`, {
             method: 'PUT',
             body: JSON.stringify(appointmentData)
+        });
+    }
+
+    async updateAppointmentStatus(id, status) {
+        return await this.apiCall(`appointments?id=${id}`, {
+            method: 'PUT',
+            body: JSON.stringify({ status })
         });
     }
 

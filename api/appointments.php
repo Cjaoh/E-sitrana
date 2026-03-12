@@ -10,6 +10,11 @@ require_once __DIR__ . '/../models/Patient.php';
 
 $database = new Database();
 $db = $database->getConnection();
+if(!$db) {
+    http_response_code(503);
+    echo json_encode(array("message" => "Database connection failed."));
+    exit();
+}
 
 $appointment = new Appointment($db);
 $patient = new Patient($db);
@@ -131,6 +136,13 @@ switch($request_method) {
         $data = json_decode(file_get_contents("php://input"));
         
         if(isset($_GET['id']) && !empty($data->status)) {
+            $allowed_statuses = array('en attente', 'confirmé', 'annulé', 'terminé');
+            if(!in_array($data->status, $allowed_statuses, true)) {
+                http_response_code(400);
+                echo json_encode(array("message" => "Invalid status value."));
+                break;
+            }
+
             $appointment->id = $_GET['id'];
             $appointment->status = $data->status;
             

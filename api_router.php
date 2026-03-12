@@ -5,7 +5,9 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Get the requested path
 $request_uri = $_SERVER['REQUEST_URI'];
@@ -19,13 +21,14 @@ $routes = [
     'auth' => 'auth.php',
     'services' => 'services.php',
     'doctors' => 'doctors.php',
+    'patients' => 'patients.php',
     'appointments' => 'appointments.php',
     'dashboard' => 'dashboard.php',
 ];
 
 // Route to appropriate file
 if (isset($routes[$api_path])) {
-    $file = $routes[$api_path];
+    $file = __DIR__ . '/api/' . $routes[$api_path];
     if (file_exists($file)) {
         require_once $file;
     } else {

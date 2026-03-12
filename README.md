@@ -10,6 +10,14 @@ Application web de gestion de clinique médicale avec système de prise de rende
 
 ## Installation
 
+### Démarrage rapide (Docker)
+
+```bash
+make up
+```
+
+Puis ouvrez `http://localhost:8080`.
+
 ### 1. Configuration de la base de données
 
 1. Importez le fichier `database_setup.sql` dans votre base de données MySQL

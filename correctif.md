@@ -1,0 +1,72 @@
+# Correctifs – E-sitrana
+
+## Problèmes trouvés
+- Le routeur API chargeait `auth.php`, `services.php`, etc. sans le chemin `api/`, ce qui provoquait des erreurs "API file not found" car les fichiers sont dans `api/`.
+- L’endpoint `/api/patients` existait côté code (`api/patients.php`) mais n’était pas exposé par le routeur API, donc inaccessible.
+- `config/database.php` faisait un `require_once 'database_mysql.php'` avec un chemin relatif au script principal. Quand l’API est appelée via `api.php`, PHP cherchait `/var/www/html/database_mysql.php` (introuvable), ce qui générait du HTML d’erreur et cassait le JSON (`Unexpected token '<'`).
+- Démarrage de session en double (`session_start()` appelé dans `api.php`/`api_router.php` puis dans `api/auth.php` ou `api/dashboard.php`), ce qui générait un warning HTML et cassait le JSON quand `display_errors` est actif.
+- Le frontend traitait le `401 Unauthorized` de `/api.php?endpoint=auth` comme une erreur bloquante alors que c’est le comportement normal quand l’utilisateur n’est pas connecté. Cela générait des erreurs console et des alertes inutiles.
+- Le schéma SQL des patients ne contenait pas `address` et `birth_date` alors que le modèle et les endpoints les utilisent, provoquant des erreurs SQL lors de la création/modification de patients (et de rendez‑vous).
+- `test_simple.php` utilisait `$database` sans l’instancier, ce qui rendait le test inutilisable.
+- `views/admin/appointments.php` appelle `app.updateAppointmentStatus(...)` mais la méthode n’existait pas dans `assets/js/app.js`, causant une erreur JS au changement de statut.
+- Les méthodes `readOne()` des modèles ne vérifiaient pas l’absence de ligne, ce qui pouvait générer des warnings HTML et casser les réponses JSON.
+- L’API acceptait n’importe quelle valeur de statut pour un rendez‑vous (risque d’état invalide côté DB).
+- Les endpoints API ne validaient pas l’échec de connexion DB, ce qui pouvait mener à des erreurs fatales ou des sorties non‑JSON.
+- Les statistiques du dashboard utilisaient un nombre de services en dur (`5`), ce qui devenait faux si la base évolue.
+- Le hash admin dans le SQL ne correspondait pas au mot de passe documenté (`admin123`), rendant la connexion impossible.
+- Encodage MySQL incohérent (import initial en latin1 + connexion `utf8`), provoquant du texte “mojibake” et un `Data truncated` sur l’ENUM de statut lors d’un update.
+- Warnings PHP 8.2 (deprecated) dus à `strip_tags(null)` sur des champs optionnels (photo/description/icon/adresse), ce qui cassait le JSON.
+- Les appels `checkAuthStatus()` loggaient en console malgré le mode “silent”, générant du bruit (401 attendu).
+
+## Corrections appliquées
+- Résolution des fichiers API via `__DIR__ . '/api/'` dans `api_router.php`.
+- Ajout de la route `patients` dans le tableau des routes du routeur API.
+- Chargement de la config MySQL via `__DIR__` dans `config/database.php`.
+- Garde `session_start()` avec `session_status()` pour éviter le double démarrage de session.
+- Autorisation explicite du statut 401 dans `checkAuthStatus()` et suppression des alertes dans ce cas.
+- Ajout des colonnes `address` et `birth_date` dans le schéma MySQL et SQLite.
+- Correction de l’instanciation de `Database` dans `test_simple.php`.
+- Ajout de `updateAppointmentStatus()` dans `assets/js/app.js`.
+- Garde `readOne()` pour retourner `false` si aucune ligne (évite les warnings).
+- Validation stricte des statuts dans `api/appointments.php`.
+- Log d’erreur DB vers `error_log` (au lieu d’output HTML).
+- Retour JSON `503` si la connexion DB échoue dans les endpoints API.
+- Calcul dynamique du total de services dans le dashboard.
+- Mise à jour du hash admin (MySQL + SQLite) pour `admin123`.
+- Passage de la connexion MySQL en `utf8mb4` et ajout de `SET NAMES utf8mb4` dans l’import SQL.
+- Normalisation des champs optionnels (null‑safe) dans les modèles Service/Doctor/Patient.
+- Suppression des logs console quand `silent: true` dans `apiCall()`.
+- Migration DB exécutée en runtime: correction des services “mojibake” et réparation de l’ENUM `appointments.status`.
+
+## Fichiers modifiés
+- `api_router.php`
+- `config/database.php`
+- `api.php`
+- `api_router.php`
+- `api/auth.php`
+- `api/dashboard.php`
+- `database_setup.sql`
+- `setup_sqlite.php`
+- `models/Service.php`
+- `models/Doctor.php`
+- `models/Patient.php`
+- `config/database_mysql.php`
+- `assets/js/app.js`
+- `router.php`
+- `assets/js/app.js`
+- `database_setup.sql`
+- `setup_sqlite.php`
+- `test_simple.php`
+- `models/Service.php`
+- `models/Doctor.php`
+- `models/Patient.php`
+- `models/Appointment.php`
+- `models/Admin.php`
+- `api/appointments.php`
+- `config/database_mysql.php`
+- `config/database_sqlite.php`
+- `api/services.php`
+- `api/doctors.php`
+- `api/patients.php`
+- `api/auth.php`
+- `api/dashboard.php`
