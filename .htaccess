@@ -1,4 +1,7 @@
 RewriteEngine On
+# Ne pas rediriger si le fichier ou le dossier existe réellement (CSS, JS, Images)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ router.php?url=$1 [QSA,L]
+
+# Envoyer tout le reste vers index.php (le routeur)
+RewriteRule ^(.*)$ index.php [QSA,L]

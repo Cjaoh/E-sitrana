@@ -1,0 +1,15 @@
+# Sécurité pour le dossier uploads
+# Interdire l'exécution de scripts
+Options -ExecCGI
+AddHandler cgi-script .php .php3 .php4 .php5 .phtml .pl .py .jsp .asp .sh .cgi
+
+# Autoriser seulement les types de fichiers autorisés
+<FilesMatch "\.(jpg|jpeg|png|gif|pdf|doc|docx)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+<FilesMatch "\.(php|phtml|php3|php4|php5|pl|py|jsp|asp|sh|cgi)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>

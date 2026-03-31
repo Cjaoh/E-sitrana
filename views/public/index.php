@@ -7,101 +7,89 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/css/custom.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Header Navigation -->
-    <header class="header">
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container">
-                <a class="navbar-brand" href="index.php">
-                    <i class="fas fa-hospital me-2"></i>E-sitrana
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php">Accueil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="services.php">Services</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="doctors.php">Médecins</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="appointment.php">Rendez-vous</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.php">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="user-dashboard.php">
-                                <i class="fas fa-user me-1"></i>Mon Espace
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/views/admin/login.php">
-                                <i class="fas fa-user-shield me-1"></i>Admin
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-hospital-alt me-2"></i>E-sitrana
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/doctors">Médecins</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/appointment">Rendez-vous</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light text-primary ms-2" href="/user-dashboard">
+                            <i class="fas fa-user"></i> Mon Compte
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-light" href="/admin/login">
+                            <i class="fas fa-cog"></i> Admin
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container">
-            <h1 class="hero-title">Bienvenue à la Clinique E-sitrana</h1>
-            <p class="hero-subtitle">Votre santé, notre priorité - Des soins médicaux de qualité pour toute la famille</p>
-            <a href="appointment.php" class="btn btn-primary btn-lg">
-                <i class="fas fa-calendar-check me-2"></i>Prendre rendez-vous
-            </a>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="py-5">
+    <section class="bg-gradient-primary text-white py-5">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
-                    <h2 class="mb-4">À propos de E-sitrana</h2>
-                    <p class="lead">La clinique E-sitrana est un établissement médical moderne dédié à offrir des soins de santé complets et personnalisés à tous nos patients.</p>
-                    <p>Nous disposons d'une équipe de médecins expérimentés et dévoués, spécialisés dans divers domaines médicaux pour répondre à tous vos besoins de santé.</p>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-check text-success me-2"></i>Équipe médicale qualifiée</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Équipements modernes</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Service personnalisé</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Disponibilité 7j/7</li>
-                    </ul>
+                    <h1 class="display-4 fw-bold mb-4">Bienvenue à E-sitrana</h1>
+                    <p class="lead mb-4">Votre clinique de confiance pour des soins médicaux de qualité. Prenez rendez-vous facilement avec nos médecins spécialisés.</p>
+                    <div class="d-flex gap-3">
+                        <a href="/appointment" class="btn btn-light btn-lg">
+                            <i class="fas fa-calendar-check me-2"></i>Prendre Rendez-vous
+                        </a>
+                        <a href="/doctors" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-user-md me-2"></i>Voir nos Médecins
+                        </a>
+                    </div>
                 </div>
-                <div class="col-lg-6">
-                    <img src="https://via.placeholder.com/600x400" alt="Clinique E-sitrana" class="img-fluid rounded shadow">
+                <div class="col-lg-6 text-center">
+                    <i class="fas fa-hospital-user display-1 opacity-75"></i>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Services Preview -->
-    <section class="py-5 bg-light">
+    <section class="py-5">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="mb-3">Nos Services</h2>
-                <p class="lead">Découvrez notre gamme complète de services médicaux</p>
+                <h2 class="display-5 fw-bold">Nos Services</h2>
+                <p class="lead text-muted">Découvrez notre gamme de services médicaux</p>
             </div>
-            <div class="row g-4" id="services-preview">
-                <!-- Services will be loaded dynamically -->
-                <div class="col-md-4">
-                    <div class="service-card">
-                        <div class="spinner"></div>
+            <div class="row" id="services-preview">
+                <div class="col-12 text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Chargement...</span>
                     </div>
                 </div>
             </div>
             <div class="text-center mt-4">
-                <a href="services.php" class="btn btn-outline-primary">
+                <a href="/services" class="btn btn-outline-primary btn-lg">
                     Voir tous les services <i class="fas fa-arrow-right ms-2"></i>
                 </a>
             </div>
@@ -109,126 +97,50 @@
     </section>
 
     <!-- Doctors Preview -->
-    <section class="py-5">
+    <section class="bg-light py-5">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="mb-3">Notre Équipe Médicale</h2>
-                <p class="lead">Des professionnels de santé à votre service</p>
+                <h2 class="display-5 fw-bold">Nos Médecins</h2>
+                <p class="lead text-muted">Rencontrez notre équipe de professionnels de santé</p>
             </div>
-            <div class="row g-4" id="doctors-preview">
-                <!-- Doctors will be loaded dynamically -->
-                <div class="col-md-4">
-                    <div class="doctor-card">
-                        <div class="spinner"></div>
+            <div class="row" id="doctors-preview">
+                <div class="col-12 text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Chargement...</span>
                     </div>
                 </div>
             </div>
             <div class="text-center mt-4">
-                <a href="doctors.php" class="btn btn-outline-primary">
+                <a href="/doctors" class="btn btn-primary btn-lg">
                     Voir tous les médecins <i class="fas fa-arrow-right ms-2"></i>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="py-5 bg-light">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="mb-3">Pourquoi nous choisir?</h2>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-3 text-center">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <h4>Disponibilité</h4>
-                        <p>Service disponible 7 jours sur 7 avec des rendez-vous flexibles</p>
-                    </div>
-                </div>
-                <div class="col-md-3 text-center">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-user-md"></i>
-                        </div>
-                        <h4>Experts</h4>
-                        <p>Équipe de médecins spécialisés et expérimentés</p>
-                    </div>
-                </div>
-                <div class="col-md-3 text-center">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-heartbeat"></i>
-                        </div>
-                        <h4>Soins complets</h4>
-                        <p>Large gamme de services médicaux sous un même toit</p>
-                    </div>
-                </div>
-                <div class="col-md-3 text-center">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-phone-alt"></i>
-                        </div>
-                        <h4>Support</h4>
-                        <p>Assistance téléphonique et suivi personnalisé</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
+    <!-- Features -->
     <section class="py-5">
         <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="mb-3">Témoignages</h2>
-                <p class="lead">Ce que nos patients disent de nous</p>
-            </div>
             <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                            </div>
-                            <p class="card-text">"Excellent service médical! Le personnel est très professionnel et attentionné."</p>
-                            <footer class="blockquote-footer mb-0">Marie K.</footer>
-                        </div>
+                <div class="col-md-4 text-center">
+                    <div class="feature-box p-4">
+                        <i class="fas fa-clock fa-3x text-primary mb-3"></i>
+                        <h4>Disponibilité 24/7</h4>
+                        <p class="text-muted">Service d'urgence disponible à tout moment</p>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                            </div>
-                            <p class="card-text">"Je recommande vivement cette clinique. Les médecins sont compétents et à l'écoute."</p>
-                            <footer class="blockquote-footer mb-0">Jean-Pierre M.</footer>
-                        </div>
+                <div class="col-md-4 text-center">
+                    <div class="feature-box p-4">
+                        <i class="fas fa-user-md fa-3x text-primary mb-3"></i>
+                        <h4>Médecins Expérimentés</h4>
+                        <p class="text-muted">Équipe médicale hautement qualifiée</p>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                            </div>
-                            <p class="card-text">"Service impeccable! Prise de rendez-vous en ligne très pratique."</p>
-                            <footer class="blockquote-footer mb-0">Sophie L.</footer>
-                        </div>
+                <div class="col-md-4 text-center">
+                    <div class="feature-box p-4">
+                        <i class="fas fa-heartbeat fa-3x text-primary mb-3"></i>
+                        <h4>Soins de Qualité</h4>
+                        <p class="text-muted">Équipements modernes et technologie avancée</p>
                     </div>
                 </div>
             </div>
@@ -236,109 +148,126 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="bg-dark text-white py-4">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <h5>E-sitrana</h5>
-                    <p>Votre clinique de confiance pour des soins médicaux de qualité.</p>
-                    <div class="mt-3">
-                        <a href="#" class="text-white me-3"><i class="fab fa-facebook fa-lg"></i></a>
-                        <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
-                        <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-lg"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-linkedin fa-lg"></i></a>
+                <div class="col-md-6">
+                    <h5><i class="fas fa-hospital-alt me-2"></i>E-sitrana</h5>
+                    <p class="text-muted">Votre santé est notre priorité</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="mb-3">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin"></i></a>
                     </div>
+                    <p class="text-muted small mb-0">&copy; 2024 E-sitrana. Tous droits réservés.</p>
                 </div>
-                <div class="col-md-4">
-                    <h5>Services</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="services.php" class="text-white">Médecine générale</a></li>
-                        <li><a href="services.php" class="text-white">Pédiatrie</a></li>
-                        <li><a href="services.php" class="text-white">Gynécologie</a></li>
-                        <li><a href="services.php" class="text-white">Cardiologie</a></li>
-                        <li><a href="services.php" class="text-white">Laboratoire</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5>Contact</h5>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-map-marker-alt me-2"></i>Lot II J 23 Ter Antsirabe, Madagascar</li>
-                        <li><i class="fas fa-phone me-2"></i>+261 34 78 23 45</li>
-                        <li><i class="fas fa-envelope me-2"></i>contact@esitrana.mg</li>
-                        <li><i class="fas fa-clock me-2"></i>Lun-Dim: 8h-20h</li>
-                    </ul>
-                </div>
-            </div>
-            <hr class="my-4 bg-white">
-            <div class="text-center">
-                <p>&copy; 2024 E-sitrana. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/js/app.js"></script>
     <script>
-        // Load services preview
-        async function loadServicesPreview() {
-            try {
-                const services = await app.getServices();
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Page d\'accueil E-sitrana chargée');
+        
+        // Fonction utilitaire pour extraire les données, qu'elles soient dans data.data ou data directement
+        const getData = (json) => {
+            console.log('Données API Services reçues:', json);
+            return Array.isArray(json) ? json : (json.data && Array.isArray(json.data) ? json.data : json.records || []);
+        };
+
+        const getDoctorsData = (json) => {
+            console.log('Données API Doctors reçues:', json);
+            return Array.isArray(json) ? json : (json.data && Array.isArray(json.data) ? json.data : json.records || []);
+        };
+
+        // Charger les Services
+        fetch('/api/services')
+            .then(res => {
+                console.log('Réponse API Services:', res.status);
+                return res.json();
+            })
+            .then(json => {
+                const data = getData(json);
+                console.log('Services traités:', data);
                 const container = document.getElementById('services-preview');
+                if (!container) {
+                    console.error('Container services-preview non trouvé');
+                    return;
+                }
                 container.innerHTML = '';
+                if (data.length === 0) {
+                    container.innerHTML = '<p class="text-center">Aucun service disponible.</p>';
+                    return;
+                }
                 
-                services.slice(0, 3).forEach(service => {
-                    const serviceCard = document.createElement('div');
-                    serviceCard.className = 'col-md-4';
-                    serviceCard.innerHTML = `
-                        <div class="service-card">
-                            <div class="service-icon">
-                                ${app.getServiceIcon(service.icon)}
+                data.slice(0, 3).forEach(s => {
+                    container.innerHTML += `
+                        <div class="col-md-4">
+                            <div class="card h-100 shadow-sm border-0 text-center p-3">
+                                <div class="card-body">
+                                    <i class="fas ${s.icon || 'fa-stethoscope'} fa-3x text-primary mb-3"></i>
+                                    <h4>${s.name || s.nom || 'Service'}</h4>
+                                    <p class="text-muted">${s.description || ''}</p>
+                                </div>
                             </div>
-                            <h4 class="service-title">${service.name}</h4>
-                            <p>${service.description.substring(0, 100)}...</p>
-                        </div>
-                    `;
-                    container.appendChild(serviceCard);
+                        </div>`;
                 });
-            } catch (error) {
-                console.error('Error loading services:', error);
-            }
-        }
+                console.log('Services affichés:', data.length);
+            }).catch(err => {
+                console.error("Erreur API Services:", err);
+                const container = document.getElementById('services-preview');
+                if (container) {
+                    container.innerHTML = '<p class="text-center text-danger">Erreur de chargement des services</p>';
+                }
+            });
 
-        // Load doctors preview
-        async function loadDoctorsPreview() {
-            try {
-                const doctors = await app.getDoctors();
+        // Charger les Médecins
+        fetch('/api/doctors')
+            .then(res => {
+                console.log('Réponse API Doctors:', res.status);
+                return res.json();
+            })
+            .then(json => {
+                const data = getDoctorsData(json);
+                console.log('Doctors traités:', data);
                 const container = document.getElementById('doctors-preview');
+                if (!container) {
+                    console.error('Container doctors-preview non trouvé');
+                    return;
+                }
                 container.innerHTML = '';
-                
-                doctors.slice(0, 3).forEach(doctor => {
-                    const doctorCard = document.createElement('div');
-                    doctorCard.className = 'col-md-4';
-                    doctorCard.innerHTML = `
-                        <div class="doctor-card">
-                            <div class="doctor-image">
-                                ${doctor.photo ? `<img src="/uploads/doctors/${doctor.photo}" alt="${doctor.first_name} ${doctor.last_name}">` : '<i class="fas fa-user-md"></i>'}
-                            </div>
-                            <div class="doctor-info">
-                                <h5 class="doctor-name">Dr ${doctor.first_name} ${doctor.last_name}</h5>
-                                <p class="doctor-specialty">${doctor.speciality}</p>
-                                <a href="appointment.php?doctor=${doctor.id}" class="btn btn-primary btn-sm">Prendre rendez-vous</a>
-                            </div>
-                        </div>
-                    `;
-                    container.appendChild(doctorCard);
-                });
-            } catch (error) {
-                console.error('Error loading doctors:', error);
-            }
-        }
+                if (data.length === 0) {
+                    container.innerHTML = '<p class="text-center">Aucun médecin disponible.</p>';
+                    return;
+                }
 
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            loadServicesPreview();
-            loadDoctorsPreview();
-        });
+                data.slice(0, 3).forEach(d => {
+                    const fullName = `${d.first_name || ''} ${d.last_name || ''}`.trim() || (d.name || 'Médecin');
+                    container.innerHTML += `
+                        <div class="col-md-4">
+                            <div class="card h-100 shadow-sm border-0 text-center p-3">
+                                <div class="card-body">
+                                    <img src="${d.photo || 'https://via.placeholder.com/150'}" class="rounded-circle mb-3" width="100" height="100" style="object-fit:cover;">
+                                    <h4>Dr. ${fullName}</h4>
+                                    <p class="badge bg-info text-dark">${d.speciality || d.specialization || d.specialite || 'Généraliste'}</p>
+                                </div>
+                            </div>
+                        </div>`;
+                });
+                console.log('Doctors affichés:', data.length);
+            }).catch(err => {
+                console.error("Erreur API Doctors:", err);
+                const container = document.getElementById('doctors-preview');
+                if (container) {
+                    container.innerHTML = '<p class="text-center text-danger">Erreur de chargement des médecins</p>';
+                }
+            });
+    });
     </script>
 </body>
 </html>

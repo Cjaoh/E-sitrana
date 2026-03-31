@@ -98,7 +98,7 @@
             try {
                 const admin = await app.checkAuthStatus();
                 if (admin) {
-                    window.location.href = 'dashboard.php';
+                    window.location.href = '/admin/dashboard';
                 }
             } catch (error) {
                 // Not logged in, continue with login form
@@ -127,7 +127,7 @@
                 if (result.admin) {
                     app.showAlert('Connexion réussie! Redirection...', 'success');
                     setTimeout(() => {
-                        window.location.href = 'dashboard.php';
+                        window.location.href = '/admin/dashboard';
                     }, 1000);
                 }
             } catch (error) {

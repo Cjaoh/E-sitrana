@@ -13,8 +13,8 @@
     <header class="header">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
-                <a class="navbar-brand" href="index.php">
-                    <i class="fas fa-hospital me-2"></i>E-sitrana
+                <a class="navbar-brand" href="/">
+                    <i class="fas fa-hospital-alt me-2"></i>E-sitrana
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
@@ -22,31 +22,31 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php">Accueil</a>
+                            <a class="nav-link" href="/">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="services.php">Services</a>
+                            <a class="nav-link" href="/services">Services</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="doctors.php">Médecins</a>
+                            <a class="nav-link active" href="/doctors">Médecins</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="appointment.php">Rendez-vous</a>
+                            <a class="nav-link" href="/appointment">Rendez-vous</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.php">Contact</a>
+                            <a class="nav-link" href="/contact">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="user-dashboard.php">
+                            <a class="nav-link" href="/user-dashboard">
                                 <i class="fas fa-user me-1"></i>Mon Espace
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/views/admin/login.php">
-                                <i class="fas fa-user-shield me-1"></i>Admin
+                            <a class="nav-link" href="/admin/login">
+                                <i class="fas fa-cog"></i> Admin
                             </a>
                         </li>
-                    </ul>
+                        </ul>
                 </div>
             </div>
         </nav>

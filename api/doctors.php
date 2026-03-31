@@ -1,11 +1,16 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+require_once __DIR__ . '/../config/cors.php';
+configureCors();
 
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/database_mysql.php';
+require_once __DIR__ . '/../config/validation.php';
+require_once __DIR__ . '/../config/rate_limiter.php';
 require_once __DIR__ . '/../models/Doctor.php';
+
+// Rate limiting général pour l'API
+if (!checkApiRateLimit()) {
+    sendRateLimitResponse();
+}
 
 $database = new Database();
 $db = $database->getConnection();
@@ -117,74 +122,87 @@ switch($request_method) {
     case 'POST':
         $data = json_decode(file_get_contents("php://input"));
         
-        if(!empty($data->first_name) && !empty($data->last_name) && !empty($data->speciality) && 
-           !empty($data->phone) && !empty($data->email) && !empty($data->service_id)) {
-            
-            $doctor->first_name = $data->first_name;
-            $doctor->last_name = $data->last_name;
-            $doctor->speciality = $data->speciality;
-            $doctor->phone = $data->phone;
-            $doctor->email = $data->email;
-            $doctor->photo = isset($data->photo) ? $data->photo : null;
-            $doctor->description = isset($data->description) ? $data->description : null;
-            $doctor->service_id = $data->service_id;
-            
-            if($doctor->create()) {
-                http_response_code(201);
-                echo json_encode(array("message" => "Doctor was created."));
-            } else {
-                http_response_code(503);
-                echo json_encode(array("message" => "Unable to create doctor."));
-            }
-        } else {
+        if(!$data) {
             http_response_code(400);
-            echo json_encode(array("message" => "Unable to create doctor. Data is incomplete."));
+            echo json_encode(array("message" => "Invalid JSON data."));
+            break;
+        }
+        
+        $validation_errors = validateDoctorData($data);
+        if(!empty($validation_errors)) {
+            http_response_code(400);
+            echo json_encode(array("message" => "Validation failed.", "errors" => $validation_errors));
+            break;
+        }
+        
+        $doctor->first_name = sanitizeInput($data->first_name);
+        $doctor->last_name = sanitizeInput($data->last_name);
+        $doctor->speciality = sanitizeInput($data->speciality);
+        $doctor->phone = sanitizeInput($data->phone);
+        $doctor->email = sanitizeInput($data->email);
+        $doctor->photo = isset($data->photo) ? sanitizeInput($data->photo) : null;
+        $doctor->description = isset($data->description) ? sanitizeInput($data->description) : null;
+        $doctor->service_id = $data->service_id;
+        
+        if($doctor->create()) {
+            http_response_code(201);
+            echo json_encode(array("message" => "Doctor was created."));
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to create doctor."));
         }
         break;
         
     case 'PUT':
         $data = json_decode(file_get_contents("php://input"));
         
-        if(isset($_GET['id']) && !empty($data->first_name) && !empty($data->last_name) && 
-           !empty($data->speciality) && !empty($data->phone) && !empty($data->email) && !empty($data->service_id)) {
-            
-            $doctor->id = $_GET['id'];
-            $doctor->first_name = $data->first_name;
-            $doctor->last_name = $data->last_name;
-            $doctor->speciality = $data->speciality;
-            $doctor->phone = $data->phone;
-            $doctor->email = $data->email;
-            $doctor->photo = isset($data->photo) ? $data->photo : null;
-            $doctor->description = isset($data->description) ? $data->description : null;
-            $doctor->service_id = $data->service_id;
-            
-            if($doctor->update()) {
-                http_response_code(200);
-                echo json_encode(array("message" => "Doctor was updated."));
-            } else {
-                http_response_code(503);
-                echo json_encode(array("message" => "Unable to update doctor."));
-            }
-        } else {
+        if(!$data || !isset($_GET['id'])) {
             http_response_code(400);
-            echo json_encode(array("message" => "Unable to update doctor. Data is incomplete."));
+            echo json_encode(array("message" => "Invalid request. Missing ID or data."));
+            break;
+        }
+        
+        $validation_errors = validateDoctorData($data);
+        if(!empty($validation_errors)) {
+            http_response_code(400);
+            echo json_encode(array("message" => "Validation failed.", "errors" => $validation_errors));
+            break;
+        }
+        
+        $doctor->id = $_GET['id'];
+        $doctor->first_name = sanitizeInput($data->first_name);
+        $doctor->last_name = sanitizeInput($data->last_name);
+        $doctor->speciality = sanitizeInput($data->speciality);
+        $doctor->phone = sanitizeInput($data->phone);
+        $doctor->email = sanitizeInput($data->email);
+        $doctor->photo = isset($data->photo) ? sanitizeInput($data->photo) : null;
+        $doctor->description = isset($data->description) ? sanitizeInput($data->description) : null;
+        $doctor->service_id = $data->service_id;
+        
+        if($doctor->update()) {
+            http_response_code(200);
+            echo json_encode(array("message" => "Doctor was updated."));
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to update doctor."));
         }
         break;
         
     case 'DELETE':
-        if(isset($_GET['id'])) {
-            $doctor->id = $_GET['id'];
-            
-            if($doctor->delete()) {
-                http_response_code(200);
-                echo json_encode(array("message" => "Doctor was deleted."));
-            } else {
-                http_response_code(503);
-                echo json_encode(array("message" => "Unable to delete doctor."));
-            }
-        } else {
+        if(!isset($_GET['id']) || !validateId($_GET['id'])) {
             http_response_code(400);
-            echo json_encode(array("message" => "Unable to delete doctor. ID is missing."));
+            echo json_encode(array("message" => "Invalid or missing doctor ID."));
+            break;
+        }
+        
+        $doctor->id = $_GET['id'];
+        
+        if($doctor->delete()) {
+            http_response_code(200);
+            echo json_encode(array("message" => "Doctor was deleted."));
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to delete doctor."));
         }
         break;
         

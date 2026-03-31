@@ -7,12 +7,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/css/custom.css" rel="stylesheet">
 </head>
 <body class="bg-light">
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="index.php">
+            <a class="navbar-brand" href="/">
                 <i class="fas fa-heartbeat me-2"></i>E-sitrana
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -21,28 +22,28 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php">Accueil</a>
+                        <a class="nav-link" href="/">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="services.php">Services</a>
+                        <a class="nav-link" href="/services">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="doctors.php">Médecins</a>
+                        <a class="nav-link" href="/doctors">Médecins</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="appointment.php">Rendez-vous</a>
+                        <a class="nav-link" href="/appointment">Rendez-vous</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.php">Contact</a>
+                        <a class="nav-link" href="/contact">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="user-dashboard.php">
+                        <a class="nav-link active" href="/user-dashboard">
                             <i class="fas fa-user me-1"></i>Mon Espace
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/views/admin/login.php">
-                            <i class="fas fa-user-shield me-1"></i>Admin
+                        <a class="nav-link btn btn-outline-light" href="/admin/login">
+                            <i class="fas fa-cog"></i> Admin
                         </a>
                     </li>
                 </ul>
@@ -164,7 +165,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-3 mb-3">
-                                    <a href="appointment.php" class="btn btn-primary w-100">
+                                    <a href="/appointment" class="btn btn-primary w-100">
                                         <i class="fas fa-plus me-2"></i>Nouveau Rendez-vous
                                     </a>
                                 </div>
@@ -179,7 +180,7 @@
                                     </button>
                                 </div>
                                 <div class="col-md-3 mb-3">
-                                    <a href="contact.php" class="btn btn-outline-info w-100">
+                                    <a href="/contact" class="btn btn-outline-info w-100">
                                         <i class="fas fa-phone me-2"></i>Nous contacter
                                     </a>
                                 </div>
@@ -202,11 +203,11 @@
                 <div class="col-md-4">
                     <h5>Services</h5>
                     <ul class="list-unstyled">
-                        <li><a href="services.php" class="text-white">Médecine générale</a></li>
-                        <li><a href="services.php" class="text-white">Pédiatrie</a></li>
-                        <li><a href="services.php" class="text-white">Gynécologie</a></li>
-                        <li><a href="services.php" class="text-white">Cardiologie</a></li>
-                        <li><a href="services.php" class="text-white">Laboratoire</a></li>
+                        <li><a href="/services" class="text-white">Médecine générale</a></li>
+                        <li><a href="/services" class="text-white">Pédiatrie</a></li>
+                        <li><a href="/services" class="text-white">Gynécologie</a></li>
+                        <li><a href="/services" class="text-white">Cardiologie</a></li>
+                        <li><a href="/services" class="text-white">Laboratoire</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
@@ -240,7 +241,7 @@
         function checkAuth() {
             const patientData = localStorage.getItem('patient');
             if (!patientData) {
-                window.location.href = 'user-login.php';
+                window.location.href = '/appointment';
                 return;
             }
 
@@ -260,7 +261,7 @@
 
         async function loadAppointments() {
             try {
-                const response = await fetch(`/api.php?endpoint=appointments&patient_id=${currentUser.id}`);
+                const response = await fetch(`/api/appointments?patient_id=${currentUser.id}`);
                 const data = await response.json();
                 
                 if (data.records) {
@@ -290,7 +291,7 @@
                         <td colspan="6" class="text-center py-4 text-muted">
                             <i class="fas fa-calendar-times fa-2x mb-2"></i>
                             <p>Vous n'avez aucun rendez-vous</p>
-                            <a href="appointment.php" class="btn btn-primary mt-2">
+                            <a href="/appointment" class="btn btn-primary mt-2">
                                 <i class="fas fa-plus me-1"></i>Prendre un rendez-vous
                             </a>
                         </td>
@@ -356,7 +357,7 @@
             }
 
             try {
-                const response = await fetch(`/api.php?endpoint=appointments&id=${id}`, {
+                const response = await fetch(`/api/appointments?id=${id}`, {
                     method: 'DELETE'
                 });
                 
@@ -382,7 +383,7 @@
 
         function logout() {
             localStorage.removeItem('patient');
-            window.location.href = 'index.php';
+            window.location.href = '/';
         }
     </script>
 </body>

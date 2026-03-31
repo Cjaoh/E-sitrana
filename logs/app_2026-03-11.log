@@ -1,0 +1,4 @@
+[2026-03-11 07:46:59] INFO: API Request: POST auth | {"method":"POST","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-11 07:46:59] INFO: Login successful for user: admin | {"username":"admin","success":true,"ip":"127.0.0.1"}
+[2026-03-11 12:43:00] INFO: API Request: POST auth | {"method":"POST","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-11 12:43:00] INFO: Login successful for user: admin | {"username":"admin","success":true,"ip":"127.0.0.1"}

@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/logger.php';
+
 class Database {
     private $host;
     private $db_name;
@@ -20,7 +22,11 @@ class Database {
             $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name . ";charset=utf8mb4", $this->username, $this->password);
             $this->conn->exec("set names utf8mb4");
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            logInfo('Database connection successful', ['database' => $this->db_name]);
+            
         } catch(PDOException $exception) {
+            logDatabaseError('Connection failed', $exception->getMessage());
             error_log("Connection error: " . $exception->getMessage());
         }
         

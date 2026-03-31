@@ -1,0 +1,32 @@
+[2026-03-09 08:23:15] INFO: API Request: POST auth | {"method":"POST","endpoint":"auth","user_id":1,"ip":"127.0.0.1"}
+[2026-03-09 08:23:15] INFO: Login successful for user: admin | {"username":"admin","success":true,"ip":"127.0.0.1"}
+[2026-03-09 19:44:22] INFO: API Request: POST auth | {"method":"POST","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 19:44:22] INFO: Login successful for user: admin | {"username":"admin","success":true,"ip":"127.0.0.1"}
+[2026-03-09 21:02:44] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:02:59] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:03:05] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:03:11] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:03:16] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:03:28] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:03:37] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:03:45] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:03:47] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:03:55] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:04:01] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:04:26] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:06:59] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:07:13] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:21:10] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:21:19] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:24:03] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:24:16] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:25:18] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:26:19] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:26:29] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:26:58] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:27:15] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:29:02] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:56:49] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:56:52] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:56:58] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}
+[2026-03-09 21:57:25] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"127.0.0.1"}

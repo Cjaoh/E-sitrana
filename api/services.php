@@ -1,10 +1,9 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+require_once __DIR__ . '/../config/cors.php';
+configureCors();
 
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/database_mysql.php';
+require_once __DIR__ . '/../config/validation.php';
 require_once __DIR__ . '/../models/Service.php';
 
 $database = new Database();
@@ -73,60 +72,77 @@ switch($request_method) {
     case 'POST':
         $data = json_decode(file_get_contents("php://input"));
         
-        if(!empty($data->name) && !empty($data->description)) {
-            $service->name = $data->name;
-            $service->description = $data->description;
-            $service->icon = isset($data->icon) ? $data->icon : null;
-            
-            if($service->create()) {
-                http_response_code(201);
-                echo json_encode(array("message" => "Service was created."));
-            } else {
-                http_response_code(503);
-                echo json_encode(array("message" => "Unable to create service."));
-            }
-        } else {
+        if(!$data) {
             http_response_code(400);
-            echo json_encode(array("message" => "Unable to create service. Data is incomplete."));
+            echo json_encode(array("message" => "Invalid JSON data."));
+            break;
+        }
+        
+        $validation_errors = validateServiceData($data);
+        if(!empty($validation_errors)) {
+            http_response_code(400);
+            echo json_encode(array("message" => "Validation failed.", "errors" => $validation_errors));
+            break;
+        }
+        
+        $service->name = sanitizeInput($data->name);
+        $service->description = sanitizeInput($data->description);
+        $service->icon = isset($data->icon) ? sanitizeInput($data->icon) : null;
+        
+        if($service->create()) {
+            http_response_code(201);
+            echo json_encode(array("message" => "Service was created."));
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to create service."));
         }
         break;
         
     case 'PUT':
         $data = json_decode(file_get_contents("php://input"));
         
-        if(isset($_GET['id']) && !empty($data->name) && !empty($data->description)) {
-            $service->id = $_GET['id'];
-            $service->name = $data->name;
-            $service->description = $data->description;
-            $service->icon = isset($data->icon) ? $data->icon : null;
-            
-            if($service->update()) {
-                http_response_code(200);
-                echo json_encode(array("message" => "Service was updated."));
-            } else {
-                http_response_code(503);
-                echo json_encode(array("message" => "Unable to update service."));
-            }
-        } else {
+        if(!$data || !isset($_GET['id'])) {
             http_response_code(400);
-            echo json_encode(array("message" => "Unable to update service. Data is incomplete."));
+            echo json_encode(array("message" => "Invalid request. Missing ID or data."));
+            break;
+        }
+        
+        $validation_errors = validateServiceData($data);
+        if(!empty($validation_errors)) {
+            http_response_code(400);
+            echo json_encode(array("message" => "Validation failed.", "errors" => $validation_errors));
+            break;
+        }
+        
+        $service->id = $_GET['id'];
+        $service->name = sanitizeInput($data->name);
+        $service->description = sanitizeInput($data->description);
+        $service->icon = isset($data->icon) ? sanitizeInput($data->icon) : null;
+        
+        if($service->update()) {
+            http_response_code(200);
+            echo json_encode(array("message" => "Service was updated."));
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to update service."));
         }
         break;
         
     case 'DELETE':
-        if(isset($_GET['id'])) {
-            $service->id = $_GET['id'];
-            
-            if($service->delete()) {
-                http_response_code(200);
-                echo json_encode(array("message" => "Service was deleted."));
-            } else {
-                http_response_code(503);
-                echo json_encode(array("message" => "Unable to delete service."));
-            }
-        } else {
+        if(!isset($_GET['id']) || !validateId($_GET['id'])) {
             http_response_code(400);
-            echo json_encode(array("message" => "Unable to delete service. ID is missing."));
+            echo json_encode(array("message" => "Invalid or missing service ID."));
+            break;
+        }
+        
+        $service->id = $_GET['id'];
+        
+        if($service->delete()) {
+            http_response_code(200);
+            echo json_encode(array("message" => "Service was deleted."));
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Unable to delete service."));
         }
         break;
         
