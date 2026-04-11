@@ -5,6 +5,7 @@ configureCors();
 require_once __DIR__ . '/../config/session.php';
 require_once __DIR__ . '/../config/logger.php';
 require_once __DIR__ . '/../config/rate_limiter.php';
+require_once __DIR__ . '/../config/validation.php';
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../models/Admin.php';
 

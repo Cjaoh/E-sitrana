@@ -239,9 +239,10 @@
         });
 
         function checkAuth() {
+            // Si pas de patient en localStorage, afficher le sélecteur
             const patientData = localStorage.getItem('patient');
             if (!patientData) {
-                window.location.href = '/appointment';
+                showPatientSelector();
                 return;
             }
 
@@ -250,13 +251,94 @@
             loadAppointments();
         }
 
+        async function showPatientSelector() {
+            try {
+                const response = await fetch('/api/patients');
+                const data = await response.json();
+                
+                if (data.records && data.records.length > 0) {
+                    const patientList = data.records.map(patient => 
+                        `<option value="${patient.id}">${patient.first_name} ${patient.last_name} - ${patient.email}</option>`
+                    ).join('');
+                    
+                    document.getElementById('userInfo').innerHTML = `
+                        <div class="row">
+                            <div class="col-md-8">
+                                <select id="patientSelect" class="form-select" onchange="selectPatient()">
+                                    <option value="">Choisissez votre profil...</option>
+                                    ${patientList}
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <button onclick="showPatientSelector()" class="btn btn-light btn-sm">
+                                    <i class="fas fa-sync"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    document.getElementById('userInfo').innerHTML = `
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Aucun patient trouvé. <a href="/appointment" class="btn btn-sm btn-primary ms-2">Prendre un rendez-vous</a>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error loading patients:', error);
+                document.getElementById('userInfo').innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Erreur de chargement des patients
+                    </div>
+                `;
+            }
+        }
+
+        async function selectPatient() {
+            const select = document.getElementById('patientSelect');
+            const patientId = select.value;
+            
+            if (!patientId) return;
+            
+            try {
+                const response = await fetch(`/api/patients?id=${patientId}`);
+                const data = await response.json();
+                
+                if (data.id) {
+                    currentUser = data;
+                    localStorage.setItem('patient', JSON.stringify(data));
+                    displayUserInfo();
+                    loadAppointments();
+                }
+            } catch (error) {
+                console.error('Error selecting patient:', error);
+                alert('Erreur lors de la sélection du patient');
+            }
+        }
+
         function displayUserInfo() {
             if (currentUser) {
                 document.getElementById('userInfo').innerHTML = `
-                    <strong>${currentUser.first_name} ${currentUser.last_name}</strong><br>
-                    <small>${currentUser.email} | ${currentUser.phone}</small>
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <strong>${currentUser.first_name} ${currentUser.last_name}</strong><br>
+                            <small>${currentUser.email} | ${currentUser.phone}</small>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <button onclick="changePatient()" class="btn btn-light btn-sm">
+                                <i class="fas fa-user-edit me-1"></i>Changer
+                            </button>
+                        </div>
+                    </div>
                 `;
             }
+        }
+
+        function changePatient() {
+            localStorage.removeItem('patient');
+            currentUser = null;
+            showPatientSelector();
         }
 
         async function loadAppointments() {
@@ -321,7 +403,7 @@
         function updateStats() {
             const total = appointments.length;
             const upcoming = appointments.filter(apt => apt.status === 'en attente' || apt.status === 'confirmé').length;
-            const completed = appointments.filter(apt => apt.status === 'terminé').length;
+            const completed = appointments.filter(apt => apt.status && apt.status.includes('termin')).length;
 
             document.getElementById('totalAppointments').textContent = total;
             document.getElementById('upcomingAppointments').textContent = upcoming;
@@ -333,9 +415,11 @@
                 'en attente': '<span class="badge bg-warning">En attente</span>',
                 'confirmé': '<span class="badge bg-success">Confirmé</span>',
                 'annulé': '<span class="badge bg-danger">Annulé</span>',
-                'terminé': '<span class="badge bg-info">Terminé</span>'
+                'terminé': '<span class="badge bg-info">Terminé</span>',
+                'terminÃ': '<span class="badge bg-info">Terminé</span>',
+                'en suivi': '<span class="badge bg-primary">En suivi</span>'
             };
-            return badges[status] || status;
+            return badges[status] || (status && status.includes('termin') ? '<span class="badge bg-info">Terminé</span>' : status);
         }
 
         function formatDate(dateString) {

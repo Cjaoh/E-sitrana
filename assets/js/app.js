@@ -2,7 +2,7 @@
 
 class EstitranaApp {
     constructor() {
-        this.apiBase = window.location.origin + '/api.php?endpoint=';
+        this.apiBase = window.location.origin + '/api/';
         this.init();
     }
 
@@ -166,7 +166,7 @@ class EstitranaApp {
 
     // Doctors
     async getDoctors(serviceId = null) {
-        const endpoint = serviceId ? `doctors&service_id=${serviceId}` : 'doctors';
+        const endpoint = serviceId ? `doctors?service_id=${serviceId}` : 'doctors';
         const result = await this.apiCall(endpoint);
         return result.records || [];
     }

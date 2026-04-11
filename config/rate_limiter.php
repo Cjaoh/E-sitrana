@@ -49,7 +49,7 @@ function checkRateLimit($max_requests = 60, $window_seconds = 60) {
  * Vérifie le rate limiting pour l'API auth (plus strict)
  */
 function checkAuthRateLimit() {
-    return checkRateLimit(5, 300); // 5 requêtes par 5 minutes pour l'auth
+    return checkRateLimit(20, 60); // 20 requêtes par minute pour l'auth
 }
 
 /**
