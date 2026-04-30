@@ -520,3 +520,25 @@
 [2026-04-11 13:05:45] INFO: Database connection successful | {"database":"E_sitrana_db"}
 [2026-04-11 13:05:45] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"172.21.0.1"}
 [2026-04-11 13:05:45] INFO: Database connection successful | {"database":"E_sitrana_db"}
+[2026-04-11 13:17:14] INFO: Database connection successful | {"database":"E_sitrana_db"}
+[2026-04-11 13:17:14] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"172.21.0.1"}
+[2026-04-11 13:17:14] INFO: Database connection successful | {"database":"E_sitrana_db"}
+[2026-04-11 13:17:18] INFO: Database connection successful | {"database":"E_sitrana_db"}
+[2026-04-11 13:17:18] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"172.21.0.1"}
+[2026-04-11 13:17:18] INFO: Database connection successful | {"database":"E_sitrana_db"}
+[2026-04-11 13:17:18] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":null,"ip":"172.21.0.1"}
+[2026-04-11 13:17:20] INFO: Database connection successful | {"database":"E_sitrana_db"}
+[2026-04-11 13:17:20] INFO: API Request: POST auth | {"method":"POST","endpoint":"auth","user_id":null,"ip":"172.21.0.1"}
+[2026-04-11 13:17:20] INFO: Login successful | {"username":"admin","success":true,"ip":"172.21.0.1"}
+[2026-04-11 13:17:21] INFO: Database connection successful | {"database":"E_sitrana_db"}
+[2026-04-11 13:17:21] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":1,"ip":"172.21.0.1"}
+[2026-04-11 13:17:21] INFO: Database connection successful | {"database":"E_sitrana_db"}
+[2026-04-11 13:19:13] INFO: Database connection successful | {"database":"E_sitrana_db"}
+[2026-04-11 13:19:13] INFO: API Request: POST auth | {"method":"POST","endpoint":"auth","user_id":1,"ip":"172.21.0.1"}
+[2026-04-11 13:19:14] INFO: Login successful | {"username":"admin","success":true,"ip":"172.21.0.1"}
+[2026-04-11 13:19:15] INFO: Database connection successful | {"database":"E_sitrana_db"}
+[2026-04-11 13:19:15] INFO: API Request: GET auth | {"method":"GET","endpoint":"auth","user_id":1,"ip":"172.21.0.1"}
+[2026-04-11 13:19:15] INFO: Database connection successful | {"database":"E_sitrana_db"}
+[2026-04-11 13:22:21] INFO: Database connection successful | {"database":"E_sitrana_db"}
+[2026-04-11 13:24:20] INFO: Database connection successful | {"database":"E_sitrana_db"}
+[2026-04-11 13:27:21] INFO: Database connection successful | {"database":"E_sitrana_db"}
