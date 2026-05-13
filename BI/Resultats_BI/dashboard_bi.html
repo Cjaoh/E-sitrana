@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de Bord BI — E-Sitrana</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a, #0e7490);
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, .4)
+    }
+
+    header .logo {
+      width: 54px;
+      height: 54px;
+      background: rgba(255, 255, 255, .15);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px
+    }
+
+    header h1 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: #fff
+    }
+
+    header p {
+      color: #bae6fd;
+      font-size: .9rem;
+      margin-top: 4px
+    }
+
+    .badge {
+      background: rgba(255, 255, 255, .2);
+      border: 1px solid rgba(255, 255, 255, .3);
+      color: #fff;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: .78rem;
+      margin-left: auto
+    }
+
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding: 32px 40px 0
+    }
+
+    .kpi {
+      background: linear-gradient(135deg, #1e293b, #0f2942);
+      border: 1px solid #1e3a5f;
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .2s
+    }
+
+    .kpi:hover {
+      transform: translateY(-3px)
+    }
+
+    .kpi::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 100px;
+      height: 100px;
+      background: rgba(255, 255, 255, .03);
+      border-radius: 50%
+    }
+
+    .kpi .icon {
+      font-size: 2rem;
+      margin-bottom: 10px
+    }
+
+    .kpi .val {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1
+    }
+
+    .kpi .lbl {
+      color: #94a3b8;
+      font-size: .82rem;
+      margin-top: 6px;
+      font-weight: 500
+    }
+
+    .kpi.blue .val {
+      color: #60a5fa
+    }
+
+    .kpi.green .val {
+      color: #34d399
+    }
+
+    .kpi.orange .val {
+      color: #fbbf24
+    }
+
+    .kpi.purple .val {
+      color: #a78bfa
+    }
+
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      padding: 28px 40px
+    }
+
+    .chart-card {
+      background: #1e293b;
+      border: 1px solid #1e3a5f;
+      border-radius: 16px;
+      padding: 24px
+    }
+
+    .chart-card.full {
+      grid-column: 1/-1
+    }
+
+    .chart-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #0f2942
+    }
+
+    .chart-card canvas {
+      max-height: 280px
+    }
+
+    .table-section {
+      padding: 0 40px 40px
+    }
+
+    .table-card {
+      background: #1e293b;
+      border: 1px solid #1e3a5f;
+      border-radius: 16px;
+      overflow: hidden
+    }
+
+    .table-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 20px 24px;
+      border-bottom: 1px solid #0f2942
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse
+    }
+
+    th {
+      background: #0f2942;
+      padding: 12px 16px;
+      text-align: left;
+      font-size: .8rem;
+      color: #7dd3fc;
+      text-transform: uppercase;
+      letter-spacing: .05em
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #0f2942;
+      font-size: .88rem
+    }
+
+    tr:last-child td {
+      border-bottom: none
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, .03)
+    }
+
+    .badge-statut {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: .75rem;
+      font-weight: 600
+    }
+
+    .s-termine {
+      background: rgba(52, 211, 153, .15);
+      color: #34d399
+    }
+
+    .s-suivi {
+      background: rgba(96, 165, 250, .15);
+      color: #60a5fa
+    }
+
+    .s-attente {
+      background: rgba(251, 191, 36, .15);
+      color: #fbbf24
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: #475569;
+      font-size: .8rem;
+      border-top: 1px solid #1e293b
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div>
+      <h1>Tableau de bord business intelligence</h1>
+      <p>E-Sitrana - Système d’information médical - Analyse au 01/05/2026</p>
+    </div>
+  </header>
+
+  <div class="kpi-row">
+    <div class="kpi blue">
+      <div class="val">37</div>
+      <div class="lbl">Total Rendez-Vous</div>
+    </div>
+    <div class="kpi green">
+      <div class="val">54%</div>
+      <div class="lbl">Taux d'achèvement</div>
+    </div>
+    <div class="kpi orange">
+      <div class="val">11</div>
+      <div class="lbl">Médecins actifs</div>
+    </div>
+    <div class="kpi purple">
+      <div class="val">13</div>
+      <div class="lbl">Patients suivis</div>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card full">
+      <h3>Evolution mensuelle des rendez-vous</h3>
+      <canvas id="evolutionChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3>Répartition par statut</h3>
+      <canvas id="statutChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3> Rendez-vous par service</h3>
+      <canvas id="serviceChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3> Charge par médecin (Top 8)</h3>
+      <canvas id="medecinChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3> Taux d'achèvement par service</h3>
+      <canvas id="tauxChart"></canvas>
+    </div>
+  </div>
+
+  <div class="table-section">
+    <div class="table-card">
+      <h3> Derniers Rendez-Vous enregistrés</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Patient</th>
+            <th>Médecin</th>
+            <th>Service</th>
+            <th>Date</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>37</td>
+            <td>Lova Malala</td>
+            <td>Dr Sophie Andriamalala</td>
+            <td>Médecine générale</td>
+            <td>31/05/2026</td>
+            <td><span class="badge-statut s-attente">En attente</span></td>
+          </tr>
+          <tr>
+            <td>35</td>
+            <td>Enzzo Fotsiny</td>
+            <td>Dr Paul Rakoto</td>
+            <td>Gynécologie</td>
+            <td>23/05/2026</td>
+            <td><span class="badge-statut s-attente">En attente</span></td>
+          </tr>
+          <tr>
+            <td>36</td>
+            <td>Sylvin Bogoss</td>
+            <td>Dr Catherine Rasoa</td>
+            <td>Médecine générale</td>
+            <td>09/05/2026</td>
+            <td><span class="badge-statut s-attente">En attente</span></td>
+          </tr>
+          <tr>
+            <td>34</td>
+            <td>Raharimalala Cedrick</td>
+            <td>Dr Marie Razafindrabe</td>
+            <td>Pédiatrie</td>
+            <td>02/05/2026</td>
+            <td><span class="badge-statut s-attente">En attente</span></td>
+          </tr>
+          <tr>
+            <td>33</td>
+            <td>Tiana Rakotondrabe</td>
+            <td>Dr Test Doctor</td>
+            <td>Médecine générale</td>
+            <td>29/03/2026</td>
+            <td><span class="badge-statut s-suivi">En suivi</span></td>
+          </tr>
+          <tr>
+            <td>31</td>
+            <td>Feno Rado</td>
+            <td>Dr Élodie Mahazo</td>
+            <td>Médecine générale</td>
+            <td>28/03/2026</td>
+            <td><span class="badge-statut s-suivi">En suivi</span></td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>Rasoa Mialy</td>
+            <td>Dr Jean Dupont</td>
+            <td>Cardiologie</td>
+            <td>15/03/2026</td>
+            <td><span class="badge-statut s-termine">Terminé</span></td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>Rakoto Rabe</td>
+            <td>Dr Jean Dupont</td>
+            <td>Cardiologie</td>
+            <td>10/03/2026</td>
+            <td><span class="badge-statut s-termine">Terminé</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>E-Sitrana BI · Rapport généré le 01/05/2026 · Modélisation en Étoile (Star Schema) · ETL Python</footer>
+
+  <script>
+    const grid = { color: 'rgba(255,255,255,.06)' };
+    const font = { family: 'Inter', size: 11 };
+
+    // Évolution mensuelle
+    new Chart(document.getElementById('evolutionChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Mars 2026', 'Avril 2026', 'Mai 2026'],
+        datasets: [{
+          label: 'Rendez-Vous',
+          data: [30, 2, 5],
+          backgroundColor: ['#3b82f6', '#60a5fa', '#93c5fd'],
+          borderRadius: 8, borderSkipped: false
+        }]
+      },
+      options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { grid: grid, ticks: { font } }, x: { grid: { display: false }, ticks: { font } } } }
+    });
+
+    // Statut
+    new Chart(document.getElementById('statutChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Terminé', 'En suivi', 'En attente'],
+        datasets: [{ data: [20, 12, 5], backgroundColor: ['#34d399', '#60a5fa', '#fbbf24'], borderWidth: 3, borderColor: '#1e293b', hoverOffset: 6 }]
+      },
+      options: { responsive: true, cutout: '65%', plugins: { legend: { position: 'bottom', labels: { color: '#e2e8f0', font, padding: 16 } } } }
+    });
+
+    // Service
+    new Chart(document.getElementById('serviceChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Méd. générale', 'Pédiatrie', 'Gynécologie', 'Cardiologie', 'Laboratoire', 'Labo./Image.'],
+        datasets: [{ label: 'RDV', data: [20, 5, 4, 3, 3, 2], backgroundColor: '#818cf8', borderRadius: 6, borderSkipped: false }]
+      },
+      options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } }, scales: { x: { grid: grid, ticks: { font } }, y: { grid: { display: false }, ticks: { font } } } }
+    });
+
+    // Médecin
+    new Chart(document.getElementById('medecinChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Marie Razafindrabe', 'Jean Dupont', 'Catherine Rasoa', 'Sophie Andriamalala', 'Paul Rakoto', 'Michel Rabe', 'André Tiana', 'François Razafy'],
+        datasets: [
+          { label: 'Total', data: [5, 4, 4, 4, 4, 3, 3, 3], backgroundColor: '#3b82f6', borderRadius: 4, borderSkipped: false },
+          { label: 'Terminés', data: [3, 4, 3, 3, 2, 2, 2, 2], backgroundColor: '#34d399', borderRadius: 4, borderSkipped: false }
+        ]
+      },
+      options: { responsive: true, plugins: { legend: { position: 'top', labels: { color: '#e2e8f0', font } } }, scales: { x: { grid: { display: false }, ticks: { font, maxRotation: 25 } }, y: { grid: grid, ticks: { font } } } }
+    });
+
+    // Taux achèvement
+    new Chart(document.getElementById('tauxChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Cardiologie', 'Méd. générale', 'Gynécologie', 'Pédiatrie', 'Laboratoire'],
+        datasets: [{
+          label: 'Taux %',
+          data: [100, 65, 50, 60, 67],
+          backgroundColor: ctx => { const v = ctx.dataset.data[ctx.dataIndex]; return v >= 70 ? '#34d399' : v >= 50 ? '#fbbf24' : '#f87171'; },
+          borderRadius: 8, borderSkipped: false
+        }]
+      },
+      options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { min: 0, max: 110, grid: grid, ticks: { font, callback: v => v + '%' } }, x: { grid: { display: false }, ticks: { font } } } }
+    });
+  </script>
+</body>
+
+</html>

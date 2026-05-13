@@ -235,3 +235,5 @@ Pour mettre à jour l'application :
 2. Remplacez les fichiers du projet
 3. Exécutez les éventuels scripts de migration SQL
 4. Testez toutes les fonctionnalités
+
+http://localhost:8081/views/public/user-login.php

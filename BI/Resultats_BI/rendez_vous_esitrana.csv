@@ -1,0 +1,38 @@
+Date,Heure,Médecin,Service,Statut
+31 mai 2026,15:00,Dr Sophie Andriamalala,Médecine générale,En attente
+23 mai 2026,15:30,Dr Paul Rakoto,Gynécologie,En attente
+9 mai 2026,09:30,Dr Catherine Rasoa,Médecine générale,En attente
+2 mai 2026,09:30,Dr Marie Razafindrabe,Pédiatrie,En attente
+11 avril 2026,09:30,Dr Marie Razafindrabe,Pédiatrie,En attente
+29 mars 2026,14:00,Dr Test Doctor,Médecine générale,En suivi
+28 mars 2026,09:30,Dr Élodie Mahazo,Médecine générale,En suivi
+27 mars 2026,11:30,Dr François Razafy,Médecine générale,En suivi
+26 mars 2026,15:00,Dr André Tiana,Médecine générale,En suivi
+25 mars 2026,10:00,Dr Michel Rabe,Médecine générale,En suivi
+24 mars 2026,14:30,Dr Catherine Rasoa,Médecine générale,En suivi
+23 mars 2026,13:30,Dr Lucie Ravelonarivo,Laboratoire,En suivi
+22 mars 2026,16:00,Dr Sophie Andriamalala,Médecine générale,En suivi
+21 mars 2026,11:30,Dr Marie Razafindrabe,Gynécologie,En suivi
+21 mars 2026,09:30,Dr François Razafy,Imagerie Médicale,En suivi
+20 mars 2026,14:30,Dr Lucie Ravelonarivo,Médecine générale,En suivi
+20 mars 2026,10:00,Dr André Tiana,Laboratoire,En suivi
+20 mars 2026,09:00,Dr Paul Rakoto,Gynécologie,En suivi
+20 mars 2026,08:00,Dr Catherine Rasoa,Médecine générale,En suivi
+19 mars 2026,15:30,Dr Michel Rabe,Laboratoire,Terminé
+19 mars 2026,11:00,Dr Sophie Andriamalala,Médecine générale,Terminé
+18 mars 2026,14:00,Dr Paul Rakoto,Médecine générale,Terminé
+18 mars 2026,11:00,Dr Marie Razafindrabe,Pédiatrie,En suivi
+18 mars 2026,10:30,Dr Test Doctor,Cardiologie,Terminé
+18 mars 2026,09:00,Dr Jean Dupont,Pédiatrie,Terminé
+16 mars 2026,16:30,Dr Élodie Mahazo,Médecine générale,Terminé
+15 mars 2026,10:30,Dr Jean Dupont,Cardiologie,Terminé
+14 mars 2026,13:00,Dr Michel Rabe,Médecine générale,Terminé
+13 mars 2026,10:00,Dr François Razafy,Médecine générale,Terminé
+12 mars 2026,14:00,Dr Marie Razafindrabe,Pédiatrie,Terminé
+11 mars 2026,09:30,Dr André Tiana,Médecine générale,Terminé
+10 mars 2026,09:00,Dr Jean Dupont,Cardiologie,Terminé
+9 mars 2026,08:00,Dr Lucie Ravelonarivo,Laboratoire,Terminé
+8 mars 2026,15:30,Dr Paul Rakoto,Gynécologie,Terminé
+7 mars 2026,11:30,Dr Catherine Rasoa,Médecine générale,Terminé
+6 mars 2026,12:00,Dr Test Doctor,Médecine générale,Terminé
+5 mars 2026,08:30,Dr Sophie Andriamalala,Médecine générale,Terminé

@@ -1,0 +1,16 @@
+id_service,nom_service,description
+6,Urgences,Service d'urgence 24h/24 et 7j/7 pour tous les cas médicaux urgents
+7,Imagerie Médicale,"Radiographie, échographie, scanner et IRM pour diagnostics précis"
+8,Chirurgie,Interventions chirurgicales programmées et d'urgence
+9,Médecine Interne,Diagnostic et traitement des maladies chroniques
+10,Kinésithérapie,Rééducation fonctionnelle et thérapie physique
+11,Nutrition,Conseils nutritionnels et suivi diététique personnalisé
+12,Psychologie,Soutien psychologique et thérapie comportementale
+13,Soins Palliatifs,Accompagnement et confort pour patients en fin de vie
+14,Vaccination,Centre de vaccination pour enfants et adultes
+15,Biologie,Analyses de sang et examens biologiques complets
+1,Médecine générale,Consultations générales pour tous les problèmes de santé courants
+2,Pédiatrie,Soins médicaux spécialisés pour les enfants et les adolescents
+3,Gynécologie,Santé féminine et soins gynécologiques complets
+4,Cardiologie,Diagnostic et traitement des maladies cardiaques
+5,Laboratoire,Analyses médicales et tests de laboratoire

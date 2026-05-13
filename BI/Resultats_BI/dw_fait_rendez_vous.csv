@@ -1,0 +1,38 @@
+id_rv,Patient,Medecin,Service,id_temps,heure,statut,nb_rendez_vous,est_termine,est_en_suivi,est_en_attente
+37,lova  malala,Sophie Andriamalala,Médecine générale,29,15:00:00,en attente,1,0,0,1
+35,Enzzo fotsiny,Paul Rakoto,Gynécologie,28,15:30:00,en attente,1,0,0,1
+36,Sylvin Bogoss,Catherine Rasoa,Médecine générale,27,09:30:00,en attente,1,0,0,1
+34,Raharimalala Cedrick,Marie Razafindrabe,Pédiatrie,26,09:30:00,en attente,1,0,0,1
+11,Jaoh Ced,Marie Razafindrabe,Pédiatrie,25,09:30:00,en attente,1,0,0,1
+33,Tiana Rakotondrabe,Test Doctor,Médecine générale,24,14:00:00,en suivi,1,0,1,0
+31,Feno Rado,Élodie Mahazo,Médecine générale,23,09:30:00,en suivi,1,0,1,0
+29,Rasoa Mialy,François Razafy,Médecine générale,22,11:30:00,en suivi,1,0,1,0
+25,Tiana Rakotondrabe,André Tiana,Médecine générale,21,15:00:00,en suivi,1,0,1,0
+21,Rasoa Mialy,Michel Rabe,Médecine générale,20,10:00:00,en suivi,1,0,1,0
+23,Feno Rado,Catherine Rasoa,Médecine générale,19,14:30:00,en suivi,1,0,1,0
+27,Sahondra Ravelonarivo,Lucie Ravelonarivo,Laboratoire,18,13:30:00,en suivi,1,0,1,0
+19,Sahondra Ravelonarivo,Sophie Andriamalala,Médecine générale,17,16:00:00,en suivi,1,0,1,0
+10,Rasoa Mialy,Marie Razafindrabe,Gynécologie,16,11:30:00,en suivi,1,0,1,0
+9,Sahondra Ravelonarivo,François Razafy,Imagerie Médicale,16,09:30:00,en suivi,1,0,1,0
+8,Mamy Razafindrabe,Lucie Ravelonarivo,Médecine générale,15,14:30:00,en suivi,1,0,1,0
+7,Tiana Rakotondrabe,André Tiana,Laboratoire,15,10:00:00,en suivi,1,0,1,0
+17,Tiana Rakotondrabe,Paul Rakoto,Gynécologie,15,09:00:00,en suivi,1,0,1,0
+6,Rakoto Rabe,Catherine Rasoa,Médecine générale,15,08:00:00,en suivi,1,0,1,0
+5,Lala Herinirina,Michel Rabe,Laboratoire,14,15:30:00,terminé,1,1,0,0
+4,Feno Rado,Sophie Andriamalala,Médecine générale,14,11:00:00,terminé,1,1,0,0
+3,Andry Nirina,Paul Rakoto,Médecine générale,13,14:00:00,terminé,1,1,0,0
+15,Feno Rado,Marie Razafindrabe,Pédiatrie,13,11:00:00,en suivi,1,0,1,0
+2,Rasoa Mialy,Test Doctor,Cardiologie,13,10:30:00,terminé,1,1,0,0
+1,Rakoto Rabe,Jean Dupont,Pédiatrie,13,09:00:00,terminé,1,1,0,0
+30,Andry Nirina,Élodie Mahazo,Médecine générale,12,16:30:00,terminé,1,1,0,0
+13,Rasoa Mialy,Jean Dupont,Cardiologie,11,10:30:00,terminé,1,1,0,0
+20,Rakoto Rabe,Michel Rabe,Médecine générale,10,13:00:00,terminé,1,1,0,0
+28,Rakoto Rabe,François Razafy,Médecine générale,9,10:00:00,terminé,1,1,0,0
+14,Andry Nirina,Marie Razafindrabe,Pédiatrie,8,14:00:00,terminé,1,1,0,0
+24,Lala Herinirina,André Tiana,Médecine générale,7,09:30:00,terminé,1,1,0,0
+12,Rakoto Rabe,Jean Dupont,Cardiologie,6,09:00:00,terminé,1,1,0,0
+26,Mamy Razafindrabe,Lucie Ravelonarivo,Laboratoire,5,08:00:00,terminé,1,1,0,0
+16,Lala Herinirina,Paul Rakoto,Gynécologie,4,15:30:00,terminé,1,1,0,0
+22,Andry Nirina,Catherine Rasoa,Médecine générale,3,11:30:00,terminé,1,1,0,0
+32,Lala Herinirina,Test Doctor,Médecine générale,2,12:00:00,terminé,1,1,0,0
+18,Mamy Razafindrabe,Sophie Andriamalala,Médecine générale,1,08:30:00,terminé,1,1,0,0
